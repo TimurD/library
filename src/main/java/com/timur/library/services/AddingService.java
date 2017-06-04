@@ -2,8 +2,6 @@ package com.timur.library.services;
 
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
-import com.timur.library.dao.factory.MySQLDAO;
-import com.timur.library.dao.mysqldao.BookMySQLDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +38,8 @@ public class AddingService {
         for (String authorId : authorIdsString) {
             authorIds.add(Integer.valueOf(authorId));
         }
-        Integer bookId = mySQLDAO.getBookMySQLDAO().create(name, genreId, amount);
-        mySQLDAO.getAuthorsBookMySQLDAO().create(authorIds, bookId);
+        Integer bookId = mySQLDAO.getBookDAO().create(name, genreId, amount);
+        mySQLDAO.getAuthorsBookDAO().create(authorIds, bookId);
     }
 
     public int addNewAuthor(String authorName) {
@@ -49,6 +47,6 @@ public class AddingService {
     }
 
     public int addNewGenre(String genreName) {
-        return mySQLDAO.getGenreMySQLDAO().create(genreName);
+        return mySQLDAO.getGenreDAO().create(genreName);
     }
 }

@@ -33,7 +33,7 @@ public class IssuanceBookService {
     }
 
     public Integer queryOnBook(Integer readerId, Integer bookId, boolean isAdmin) {
-        return mySQLDAO.getReaderBookMySQLDAO().readerTakeBook(readerId, bookId,isAdmin);
+        return mySQLDAO.getReaderBookDAO().readerTakeBook(readerId, bookId,isAdmin);
     }
 
     public boolean isAdmin(List<Role> roles) {

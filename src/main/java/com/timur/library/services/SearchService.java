@@ -2,7 +2,6 @@ package com.timur.library.services;
 
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
-import com.timur.library.dao.factory.MySQLDAO;
 import com.timur.library.entities.*;
 
 import java.util.List;
@@ -33,25 +32,25 @@ public class SearchService {
     }
 
     public List<Book>findAllBooks(){
-        return mySQLDAO.getBookMySQLDAO().findAll();
+        return mySQLDAO.getBookDAO().findAll();
     }
 
 
     public List<Book>findBooksByName(String name){
-        return mySQLDAO.getBookMySQLDAO().findByName(name);
+        return mySQLDAO.getBookDAO().findByName(name);
     }
 
     public List<Book>findBooksByGenre(Integer genreId){
-        return mySQLDAO.getBookMySQLDAO().findByGenre(genreId);
+        return mySQLDAO.getBookDAO().findByGenre(genreId);
     }
 
 
     public List<Book>findAllBookOfAuthor(String name){
-        return mySQLDAO.getBookMySQLDAO().findAllBooksOfAuthor(name);
+        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(name);
     }
 
     public List<Genre>findAllGenres(){
-        return mySQLDAO.getGenreMySQLDAO().findAll();
+        return mySQLDAO.getGenreDAO().findAll();
     }
 
     public List<Author>findAllAuthors(){
@@ -61,7 +60,7 @@ public class SearchService {
 
 
     public List<Book>allBooksOfAuthor(Integer id){
-        return mySQLDAO.getBookMySQLDAO().findAllBooksOfAuthor(id);
+        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(id);
     }
 
     public List<Author>findAuthorsByName(String name){
@@ -69,7 +68,7 @@ public class SearchService {
     }
 
     public Book findBooksById(Integer id) {
-        return mySQLDAO.getBookMySQLDAO().findById(id);
+        return mySQLDAO.getBookDAO().findById(id);
     }
 }
 

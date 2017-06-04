@@ -136,7 +136,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
     }
 
 
-    public List<Reader> findByDynamicSelect(String sql, Object[] sqlParams)  {
+    private List<Reader> findByDynamicSelect(String sql, Object[] sqlParams)  {
         try (Connection connection=Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             for (int i = 0; sqlParams != null && i < sqlParams.length; i++) {

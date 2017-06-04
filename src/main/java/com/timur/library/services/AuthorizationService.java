@@ -2,7 +2,6 @@ package com.timur.library.services;
 
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
-import com.timur.library.dao.factory.MySQLDAO;
 import com.timur.library.entities.Reader;
 
 import java.util.regex.Matcher;
@@ -40,9 +39,9 @@ public class AuthorizationService {
 
 
     public Reader login(String email, String login){
-       Reader reader= mySQLDAO.getReaderMySQLDAO().login(email,login);
+       Reader reader= mySQLDAO.getReaderDAO().login(email,login);
        if(reader!=null){
-           reader.setRoles(mySQLDAO.getRoleMySQLDAO().findRolesForReader(reader));
+           reader.setRoles(mySQLDAO.getRoleDAO().findRolesForReader(reader));
        }
        return reader;
     }
@@ -52,7 +51,7 @@ public class AuthorizationService {
         reader.setName(name);
         reader.setEmail(email);
         reader.setPassword(password);
-        mySQLDAO.getReaderMySQLDAO().create(reader);
+        mySQLDAO.getReaderDAO().create(reader);
     }
 
     public boolean checkName(String name){

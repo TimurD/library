@@ -7,26 +7,53 @@ import com.timur.library.dao.mysqldao.*;
  */
 public class MySQLDAO extends DAOFactory {
 
-   private static volatile MySQLDAO mySQLDAO;
+    private static volatile MySQLDAO mySQLDAO;
 
-   public static MySQLDAO getInstance() {
-      MySQLDAO localInstance = mySQLDAO;
-      if (localInstance == null) {
-         synchronized (MySQLDAO.class) {
-            localInstance = mySQLDAO;
-            if (localInstance == null) {
-               mySQLDAO = localInstance = new MySQLDAO();
+    public static MySQLDAO getInstance() {
+        MySQLDAO localInstance = mySQLDAO;
+        if (localInstance == null) {
+            synchronized (MySQLDAO.class) {
+                localInstance = mySQLDAO;
+                if (localInstance == null) {
+                    mySQLDAO = localInstance = new MySQLDAO();
+                }
             }
-         }
-      }
-      return localInstance;
-   }
+        }
+        return localInstance;
+    }
 
-   public AuthorMySQLDAO getAuthorDAO(){return AuthorMySQLDAO.getInstance();}
-   public BookMySQLDAO getBookMySQLDAO(){return BookMySQLDAO.getInstance();}
-   public GenreMySQLDAO getGenreMySQLDAO(){return GenreMySQLDAO.getInstance();}
-   public ReaderBookMySQLDAO getReaderBookMySQLDAO(){return ReaderBookMySQLDAO.getInstance();}
-   public ReaderMySQLDAO getReaderMySQLDAO(){return ReaderMySQLDAO.getInstance();}
-   public RoleMySQLDAO getRoleMySQLDAO(){return RoleMySQLDAO.getInstance();}
-   public AuthorsBookMySQLDAO getAuthorsBookMySQLDAO(){return AuthorsBookMySQLDAO.getInstance();}
+    @Override
+    public AuthorMySQLDAO getAuthorDAO() {
+        return AuthorMySQLDAO.getInstance();
+    }
+
+    @Override
+    public BookMySQLDAO getBookDAO() {
+        return BookMySQLDAO.getInstance();
+    }
+
+    @Override
+    public GenreMySQLDAO getGenreDAO() {
+        return GenreMySQLDAO.getInstance();
+    }
+
+    @Override
+    public ReaderBookMySQLDAO getReaderBookDAO() {
+        return ReaderBookMySQLDAO.getInstance();
+    }
+
+    @Override
+    public ReaderMySQLDAO getReaderDAO() {
+        return ReaderMySQLDAO.getInstance();
+    }
+
+    @Override
+    public RoleMySQLDAO getRoleDAO() {
+        return RoleMySQLDAO.getInstance();
+    }
+
+    @Override
+    public AuthorsBookMySQLDAO getAuthorsBookDAO() {
+        return AuthorsBookMySQLDAO.getInstance();
+    }
 }

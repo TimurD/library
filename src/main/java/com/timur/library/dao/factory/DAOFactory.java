@@ -1,6 +1,6 @@
 package com.timur.library.dao.factory;
 
-import com.timur.library.dao.interfaces.AuthorDAO;
+import com.timur.library.dao.interfaces.*;
 import com.timur.library.dao.mysqldao.*;
 
 /**
@@ -19,12 +19,12 @@ public abstract class DAOFactory {
         }
     }
 
-    public abstract AuthorMySQLDAO getAuthorDAO();
-    public abstract BookMySQLDAO getBookMySQLDAO();
-    public abstract GenreMySQLDAO getGenreMySQLDAO();
-    public abstract ReaderBookMySQLDAO getReaderBookMySQLDAO();
-    public abstract ReaderMySQLDAO getReaderMySQLDAO();
-    public abstract RoleMySQLDAO getRoleMySQLDAO();
-    public abstract AuthorsBookMySQLDAO getAuthorsBookMySQLDAO();
+    public abstract AuthorDAO getAuthorDAO();
+    public abstract BookDAO getBookDAO();
+    public abstract GenreDAO getGenreDAO();
+    public abstract ReaderBookDAO getReaderBookDAO();
+    public abstract ReaderDAO getReaderDAO();
+    public abstract RoleDAO getRoleDAO();
+    public abstract AuthorsBookDAO getAuthorsBookDAO();
 
 }

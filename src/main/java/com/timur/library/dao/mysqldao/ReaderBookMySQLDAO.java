@@ -1,6 +1,7 @@
 package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
+import com.timur.library.dao.interfaces.ReaderBookDAO;
 import com.timur.library.entities.*;
 import org.apache.log4j.Logger;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 /**
  * Created by timur on 25.05.2017.
  */
-public class ReaderBookMySQLDAO {
+public class ReaderBookMySQLDAO implements ReaderBookDAO {
 
     private final static Logger LOGGER = Logger.getLogger(ReaderBookMySQLDAO.class);
 
@@ -47,7 +48,7 @@ public class ReaderBookMySQLDAO {
         }
         return localInstance;
     }
-
+    @Override
     public Integer readerTakeBook(Integer readerId, Integer bookId, Boolean isAdmin) {
         Integer i = 0;
         try (Connection connection = Connector.getConnection();
@@ -62,7 +63,7 @@ public class ReaderBookMySQLDAO {
         }
         return i;
     }
-
+    @Override
     public void getBookToReader(Integer id, Integer days) {
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_BOOK_TO_READER)) {
@@ -76,7 +77,7 @@ public class ReaderBookMySQLDAO {
             LOGGER.error(e);
         }
     }
-
+    @Override
     public void readerReturnBook(Integer id) {
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(READER_RETURN_BOOK)) {
@@ -87,7 +88,7 @@ public class ReaderBookMySQLDAO {
         }
     }
 
-
+    @Override
     public Boolean isBookOrdered(Integer bookId) {
         Boolean ordered = false;
         try (Connection connection = Connector.getConnection();
@@ -103,7 +104,7 @@ public class ReaderBookMySQLDAO {
         }
         return ordered;
     }
-
+    @Override
     public List<ReaderBook> findReadersForBook(Integer bookId) {
         List<ReaderBook> readers = new ArrayList<>();
         try (Connection connection = Connector.getConnection();
@@ -128,11 +129,11 @@ public class ReaderBookMySQLDAO {
         }
         return readers;
     }
-
+    @Override
     public List<ReaderBook> findReaderBooksForAdmins(Integer readerId) {
         return findReaderBooks(readerId, SELECT_READER_BOOKS_FOR_ADMIN);
     }
-
+    @Override
     public List<ReaderBook> findReaderBooksForReader(Integer readerId) {
         return findReaderBooks(readerId, SELECT_BOOKS_FOR_READER);
     }
@@ -152,7 +153,7 @@ public class ReaderBookMySQLDAO {
         return books;
     }
 
-
+    @Override
     public List<ReaderBook> findBooksForReadingRoom() {
         List<ReaderBook> books = new ArrayList<>();
         try (Connection connection = Connector.getConnection();
@@ -165,6 +166,7 @@ public class ReaderBookMySQLDAO {
         return books;
     }
 
+    @Override
     public List<ReaderBook> findBookOrders() {
         List<ReaderBook> books = new ArrayList<>();
         try (Connection connection = Connector.getConnection();

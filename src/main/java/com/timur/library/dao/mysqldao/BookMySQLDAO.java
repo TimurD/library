@@ -49,7 +49,6 @@ public class BookMySQLDAO implements BookDAO {
         }
         return localInstance;
     }
-
     private BookMySQLDAO(){
 
     }
@@ -193,7 +192,7 @@ public class BookMySQLDAO implements BookDAO {
 
 
     private List<Book> fillUpBook(ResultSet resultSet) throws SQLException {
-        Map<Integer,Book> books= new HashMap<Integer,Book>();
+        Map<Integer,Book> books= new HashMap<>();
        while (resultSet.next()){
            int id=resultSet.getInt("b.id");
            if(books.containsKey(id)){
