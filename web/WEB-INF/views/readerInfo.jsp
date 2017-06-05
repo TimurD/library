@@ -25,7 +25,7 @@
             <th>Authors</th>
             <th>Lend Date</th>
             <th>Return Date</th>
-            <c:if test="${isAdmin}">
+            <c:if test="${user.admin}">
                 <th></th>
             </c:if>
             <th></th>
@@ -47,7 +47,7 @@
                 <td>
                     <fmt:formatDate pattern="yyyy-MM-dd" value="${rb.returnDate}"/>
                 </td>
-                <c:if test="${isAdmin}">
+                <c:if test="${user.admin}">
                     <td>
                         <form action="/Controller" method="POST">
                             <input type="hidden" name="command" value="returnBook"/>

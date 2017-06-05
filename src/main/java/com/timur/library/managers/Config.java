@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class Config {
 
 
-
+    public static final String HOST = "HOST";
     private static Config instance;
 
     private ResourceBundle resource;

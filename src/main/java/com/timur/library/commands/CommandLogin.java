@@ -7,8 +7,9 @@ package com.timur.library.commands;
 import com.timur.library.model.Reader;
 import com.timur.library.managers.Config;
 import com.timur.library.managers.Message;
+import com.timur.library.services.AdminService;
 import com.timur.library.services.AuthorizationService;
-import com.timur.library.services.IssuanceBookService;
+import com.timur.library.services.HostService;
 import com.timur.library.services.SearchService;
 
 import java.io.IOException;
@@ -27,26 +28,27 @@ public class CommandLogin implements ICommand {
 
     private SearchService searchService =  SearchService.getInstance();
     private AuthorizationService authorizationService = AuthorizationService.getInstance();
-    private IssuanceBookService issuanceBookService=IssuanceBookService.getInstance();
+    private HostService hostService=HostService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = null;
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
         Reader reader;
         reader= authorizationService.login(login,password);
         if (reader!=null) {
             request.getSession().setAttribute("user",reader);
-            request.getSession().setAttribute("isAdmin",issuanceBookService.isAdmin(reader.getRoles()));
+            if(authorizationService.isHost(reader.getRoles())){
+                request.setAttribute("users",hostService.getUsersForHost());
+                return Config.getInstance().getProperty(Config.HOST);
+            }
+            reader.setAdmin(authorizationService.isAdmin(reader.getRoles()));
             request.getSession().setAttribute("books", searchService.findAllBooks());
             request.getServletContext().setAttribute("genres", searchService.findAllGenres());
-            page = Config.getInstance().getProperty(Config.MAIN);
-        } else {
-            request.setAttribute("error", Message.getInstance().getProperty(Message.LOGIN_ERROR));
-            page = Config.getInstance().getProperty(Config.LOGIN);
+            return Config.getInstance().getProperty(Config.MAIN);
         }
+            request.setAttribute("error", Message.getInstance().getProperty(Message.LOGIN_ERROR));
+            return Config.getInstance().getProperty(Config.LOGIN);
 
-        return page;
     }
 }

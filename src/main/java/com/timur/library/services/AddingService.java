@@ -12,7 +12,7 @@ import java.util.List;
 public class AddingService {
 
     private DAOFactory mySQLDAO = DAOFactory.getDAOFactory(DAOTypes.MySQL);
-    ;
+
     private static volatile AddingService addingService;
 
     private AddingService() {

@@ -3,7 +3,9 @@ package com.timur.library.services;
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
 import com.timur.library.model.Reader;
+import com.timur.library.model.Role;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,6 +44,7 @@ public class AuthorizationService {
        Reader reader= mySQLDAO.getReaderDAO().login(email,login);
        if(reader!=null){
            reader.setRoles(mySQLDAO.getRoleDAO().findRolesForReader(reader));
+           reader.setAdmin(reader.getAdmin());
        }
        return reader;
     }
@@ -53,6 +56,25 @@ public class AuthorizationService {
         reader.setPassword(password);
         mySQLDAO.getReaderDAO().create(reader);
     }
+
+    public boolean isAdmin(List<Role> roles) {
+        for(Role role:roles){
+            if(role.getName().equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isHost(List<Role> roles) {
+        for(Role role:roles){
+            if(role.getName().equals("ROLE_HOST")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public boolean checkName(String name){
         return name.matches(VALID_NAME_REGEX);
@@ -66,4 +88,6 @@ public class AuthorizationService {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
         return matcher.find();
     }
+
+
 }

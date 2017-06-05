@@ -67,7 +67,7 @@
                 <div class="thumbnail">
                     <h4>
                         <c:choose>
-                            <c:when test="${isAdmin}">
+                            <c:when test="${user.admin}">
                                 <a href="/Controller?command=bookLenders&id=${b.id}"> ${b.name}</a>
                             </c:when>
                             <c:otherwise>
@@ -83,14 +83,14 @@
                     <p>Genre:${b.genre.name}</p>
                     <p>Amount:
                         <c:choose>
-                        <c:when test="${isAdmin}">
+                        <c:when test="${user.admin}">
                     <form name="setAmount" method="POST" action="/Controller">
                         <input type="hidden" name="command" value="setBookAmount"/>
                         <input type="hidden" name="bookId" value="${b.id}"/>
                         <input class="form-control" type="number" name="amount" required="required" value="${b.amount}"
                                placeholder="Book Amount" onchange="handleChange(this);">
                     <button type="submit" class="btn btn-default">Set amount</button>
-                </form>
+                    </form>
                     </c:when>
                     <c:otherwise>
                         ${b.amount}
@@ -106,7 +106,7 @@
                             <p>Sorry, this book is not available</p>
                         </c:otherwise>
                     </c:choose>
-                    <c:if test="${isAdmin}">
+                    <c:if test="${user.admin}">
                         <a href="/Controller?command=deleteBook&bookId=${b.id}" role="button" class="btn btn-danger"
                            onclick="return confirm('Are you sure you want to delete?')">Delete</a>
                     </c:if>

@@ -1,5 +1,7 @@
 package com.timur.library.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.List;
 
 /**
@@ -11,13 +13,22 @@ public class Reader {
     private String email;
     private Integer id;
     private List<Role> roles;
-    private int debt;
+    private Integer debt;
+    private Boolean admin;
 
-    public int getDebt() {
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public Integer getDebt() {
         return debt;
     }
 
-    public void setDebt(int debt) {
+    public void setDebt(Integer debt) {
         this.debt = debt;
     }
 

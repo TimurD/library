@@ -21,13 +21,13 @@
                 <li><a href="/Controller?command=mainMenu">
                     <fmt:message key="header.mainPage" bundle="${lang}"/>
                 </a></li>
-                <c:if test="${!isAdmin}">
+                <c:if test="${!user.admin}">
                     <li><a href="/Controller?command=readerInfo">
                         <fmt:message key="header.myBooks" bundle="${lang}"/>
 
                     </a></li>
                 </c:if>
-                <c:if test="${isAdmin}">
+                <c:if test="${user.admin}">
                     <li><a href="/Controller?command=readers">
                         <fmt:message key="header.readers" bundle="${lang}"/>
                     </a></li>

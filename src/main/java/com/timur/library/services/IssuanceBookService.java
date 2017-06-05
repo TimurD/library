@@ -40,13 +40,5 @@ public class IssuanceBookService {
     public List<ReaderBook>getBooksOfReaderForReader(Integer readerId){return mySQLDAO.getReaderBookDAO().findReaderBooksForReader(readerId);}
 
 
-    public boolean isAdmin(List<Role> roles) {
-        for(Role role:roles){
-            if(role.getName().equals("ROLE_ADMIN")) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 }

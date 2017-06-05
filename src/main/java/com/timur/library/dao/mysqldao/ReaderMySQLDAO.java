@@ -26,17 +26,17 @@ public class ReaderMySQLDAO implements ReaderDAO {
 
     private static volatile ReaderMySQLDAO readerMySQLDAO;
 
-    private final String GROUP_BY="group by r.id";
-    private final String SELECT_READERS="Select r.id,r.name,r.email , IFNULL(count(rb.reader_id),0) as debt from readers r join readers_roles rr on r.id=rr.reader_id left  join readers_books rb on r.id=rb.reader_id and  rb.active=b'1' where r.id not in(select reader_id from readers_roles where role_id=2) ";
-    private final String SELECT_ALL_READERS=SELECT_READERS+GROUP_BY;
-    private final String SELECT_READER_BY_ID=SELECT_READERS+"AND r.id=? ";
-    private final String SELECT_READER_BY_NAME=SELECT_READERS+"AND name LIKE ? "+GROUP_BY;
-    private final String SELECT_READER_BY_EMAIL=SELECT_READERS+"AND email LIKE ? "+GROUP_BY;
-    private final String SELECT_READER_BY_LOGIN_INFORMATION="SELECT r.id,r.name,r.email FROM readers r WHERE r.email=? and r.password=? ";//TODO: count of books don't need and login for anmins
-    private final String INSERT_READER="INSERT INTO readers (name,password,email) VALUES (?,?,?)";
+    private final String GROUP_BY = "group by r.id";
+    private final String SELECT_READERS = "Select r.id,r.name,r.email , IFNULL(count(rb.reader_id),0) as debt from readers r join readers_roles rr on r.id=rr.reader_id left  join readers_books rb on r.id=rb.reader_id and  rb.active=b'1' where r.id not in(select reader_id from readers_roles where role_id=2) ";
+    private final String SELECT_ALL_READERS = SELECT_READERS + GROUP_BY;
+    private final String SELECT_READER_BY_ID = SELECT_READERS + "AND r.id=? ";
+    private final String SELECT_READER_BY_NAME = SELECT_READERS + "AND name LIKE ? " + GROUP_BY;
+    private final String SELECT_READER_BY_EMAIL = SELECT_READERS + "AND email LIKE ? " + GROUP_BY;
+    private final String SELECT_READER_BY_LOGIN_INFORMATION = "SELECT r.id,r.name,r.email FROM readers r WHERE r.email=? and r.password=? ";//TODO: count of books don't need and login for anmins
+    private final String INSERT_READER = "INSERT INTO readers (name,password,email) VALUES (?,?,?)";
+    private final String SELECT_READERS_FOR_HOST = "SELECT id,name,email,true as admin from readers where id in (select reader_id from readers_roles where role_id=2) union SELECT id,name,email,false as admin from readers where id not in (select reader_id from readers_roles where role_id=2)";
 
-    private final String HASH_CHANGER="MD5";
-
+    private final String HASH_CHANGER = "MD5";
 
 
     public static ReaderMySQLDAO getInstance() {
@@ -53,48 +53,67 @@ public class ReaderMySQLDAO implements ReaderDAO {
     }
 
 
-    private ReaderMySQLDAO(){
+    private ReaderMySQLDAO() {
 
     }
-
 
 
     @Override
     public List<Reader> findAll() {
-        return findByDynamicSelect(SELECT_ALL_READERS,null);
+        return findByDynamicSelect(SELECT_ALL_READERS, null);
     }
 
     @Override
     public Reader findById(Integer id) {
-        List<Reader> readers=findByDynamicSelect(SELECT_READER_BY_ID,new  Object[]{id});
-        return readers.isEmpty() ? null: readers.get(0);
+        List<Reader> readers = findByDynamicSelect(SELECT_READER_BY_ID, new Object[]{id});
+        return readers.isEmpty() ? null : readers.get(0);
     }
-
 
 
     @Override
     public List<Reader> findByName(String name) {
-        return findByDynamicSelect(SELECT_READER_BY_NAME,new  Object[]{name+"%"});
+        return findByDynamicSelect(SELECT_READER_BY_NAME, new Object[]{name + "%"});
 
     }
 
     @Override
     public List<Reader> findByEmail(String email) {
-        return findByDynamicSelect(SELECT_READER_BY_EMAIL,new  Object[]{email+"%"});
+        return findByDynamicSelect(SELECT_READER_BY_EMAIL, new Object[]{email + "%"});
     }
+
+    @Override
+    public List<Reader> findUsersForHost() {
+        List<Reader> readers = new ArrayList<>();
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_READERS_FOR_HOST);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Reader reader = new Reader();
+                reader.setEmail(resultSet.getString("email"));
+                reader.setName(resultSet.getString("name"));
+                reader.setId(resultSet.getInt("id"));
+                reader.setAdmin(resultSet.getBoolean("admin"));
+                readers.add(reader);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return readers;
+    }
+
 
     @Override
     public Reader login(String email, String password) {
         MessageDigest md = null;
-        Reader reader=null;
-        password=hashPassword(password);
-        try(Connection connection=Connector.getConnection();
-            PreparedStatement preparedStatement=connection.prepareStatement(SELECT_READER_BY_LOGIN_INFORMATION)) {
-            preparedStatement.setString(1,email);
-            preparedStatement.setString(2,password);
-            try(ResultSet resultSet=preparedStatement.executeQuery()) {
-                if(resultSet.next()) {
-                    reader=new Reader();
+        Reader reader = null;
+        password = hashPassword(password);
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_READER_BY_LOGIN_INFORMATION)) {
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    reader = new Reader();
                     reader.setEmail(resultSet.getString("r.email"));
                     reader.setName(resultSet.getString("r.name"));
                     reader.setId(resultSet.getInt("r.id"));
@@ -108,12 +127,12 @@ public class ReaderMySQLDAO implements ReaderDAO {
 
     @Override
     public void create(Reader reader) {
-        try(Connection connection=Connector.getConnection();
-            PreparedStatement preparedStatement=connection.prepareStatement(INSERT_READER)){
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_READER)) {
             String hashtext = hashPassword(reader.getPassword());
-            preparedStatement.setString(1,reader.getName());
-            preparedStatement.setString(2,hashtext);
-            preparedStatement.setString(3,reader.getEmail());
+            preparedStatement.setString(1, reader.getName());
+            preparedStatement.setString(2, hashtext);
+            preparedStatement.setString(3, reader.getEmail());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -121,7 +140,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
 
     }
 
-    private String hashPassword(String  password)  {
+    private String hashPassword(String password) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance(HASH_CHANGER);
@@ -131,13 +150,13 @@ public class ReaderMySQLDAO implements ReaderDAO {
         md.reset();
         md.update(password.getBytes());
         byte[] digest = md.digest();
-        BigInteger bigInt = new BigInteger(1,digest);
+        BigInteger bigInt = new BigInteger(1, digest);
         return bigInt.toString(16);
     }
 
 
-    private List<Reader> findByDynamicSelect(String sql, Object[] sqlParams)  {
-        try (Connection connection=Connector.getConnection();
+    private List<Reader> findByDynamicSelect(String sql, Object[] sqlParams) {
+        try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             for (int i = 0; sqlParams != null && i < sqlParams.length; i++) {
                 preparedStatement.setObject(i + 1, sqlParams[i]);

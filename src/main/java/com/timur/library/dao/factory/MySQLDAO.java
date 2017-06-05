@@ -1,5 +1,6 @@
 package com.timur.library.dao.factory;
 
+import com.timur.library.dao.interfaces.ReaderRoleDAO;
 import com.timur.library.dao.mysqldao.*;
 
 /**
@@ -55,5 +56,10 @@ public class MySQLDAO extends DAOFactory {
     @Override
     public AuthorsBookMySQLDAO getAuthorsBookDAO() {
         return AuthorsBookMySQLDAO.getInstance();
+    }
+
+    @Override
+    public ReaderRoleDAO getReaderRoleDAO() {
+        return ReaderRoleMYSQLDAO.getInstance();
     }
 }

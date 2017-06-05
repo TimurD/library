@@ -24,7 +24,7 @@ public class CommandOrderBook implements ICommand {
         Integer bookId= Integer.valueOf(request.getParameter("id"));
         Integer readerId=reader.getId();
         Reader user= (Reader) request.getSession().getAttribute("user");
-        Boolean isAdmin=(Boolean)request.getSession().getAttribute("isAdmin");
+        Boolean isAdmin=user.getAdmin();
         if(!issuanceBookService.queryOnBook(readerId,bookId,isAdmin)){
             request.getSession().setAttribute("message", Message.getInstance().getProperty(Message.BOOK_IS_NOT_AVAILABLE));
         }else{

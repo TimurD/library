@@ -4,6 +4,7 @@ import com.timur.library.model.Reader;
 import com.timur.library.model.ReaderBook;
 import com.timur.library.managers.Config;
 import com.timur.library.services.AdminService;
+import com.timur.library.services.AuthorizationService;
 import com.timur.library.services.IssuanceBookService;
 
 
@@ -21,12 +22,13 @@ public class CommandReaderInfo implements ICommand {
 
     private AdminService adminService = AdminService.getInstance();
     private IssuanceBookService issuanceBookService = IssuanceBookService.getInstance();
+    private AuthorizationService authorizationService=AuthorizationService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Reader currentUser = (Reader) request.getSession().getAttribute("user");
         List<ReaderBook> readerBooks;
-        if (issuanceBookService.isAdmin(currentUser.getRoles())) {
+        if (authorizationService.isAdmin(currentUser.getRoles())) {
             int readerId = Integer.parseInt(request.getParameter("id"));
             request.getSession().setAttribute("reader", adminService.getReaderById(readerId));
             readerBooks = adminService.getBooksOfReaderForAdmin(readerId);

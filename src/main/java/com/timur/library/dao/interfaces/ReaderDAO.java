@@ -14,5 +14,6 @@ public interface ReaderDAO{
     List<Reader> findByEmail(String email);
     Reader login(String email,String password);
     void create(Reader reader);
+    List<Reader> findUsersForHost();
 
 }
