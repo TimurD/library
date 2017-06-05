@@ -2,8 +2,8 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.AuthorDAO;
-import com.timur.library.entities.Author;
-import com.timur.library.entities.Book;
+import com.timur.library.model.Author;
+import com.timur.library.model.Book;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

@@ -1,7 +1,6 @@
 package com.timur.library.dao.interfaces;
 
-import com.timur.library.entities.Book;
-import com.timur.library.entities.Genre;
+import com.timur.library.model.Book;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface BookDAO {
     List<Book> findAll();
     Integer create(String bookName,Integer genreId,Integer amount);
     List<Book> findAllBooksOfAuthor(Integer authorId);
-    void addBookAmount(Integer id, Integer amount);
+    void setBookAmount(Integer id, Integer amount);
     List<Book> findAllBooksOfAuthor(String  authorName);
     void delete(Integer bookId);
 

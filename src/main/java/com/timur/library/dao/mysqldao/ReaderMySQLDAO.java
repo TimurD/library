@@ -2,7 +2,7 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.ReaderDAO;
-import com.timur.library.entities.Reader;
+import com.timur.library.model.Reader;
 import org.apache.log4j.Logger;
 
 import java.math.BigInteger;

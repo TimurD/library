@@ -23,6 +23,10 @@
         </session-timeout>
     </session-config>
 
+    <error-page>
+        <location>/WEB-INF/views/errorPage.jsp</location>
+    </error-page>
+
     <filter>
         <filter-name>SessionFilter</filter-name>
         <filter-class>com.timur.library.filters.SessionFilter</filter-class>

@@ -1,7 +1,7 @@
 package com.timur.library.commands;
 
-import com.timur.library.entities.Book;
-import com.timur.library.manager.Config;
+import com.timur.library.model.Book;
+import com.timur.library.managers.Config;
 import com.timur.library.services.SearchService;
 
 import javax.servlet.ServletException;

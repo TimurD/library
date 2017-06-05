@@ -1,10 +1,9 @@
 package com.timur.library.commands;
 
-import com.timur.library.entities.Reader;
-import com.timur.library.manager.Config;
-import com.timur.library.manager.Message;
+import com.timur.library.model.Reader;
+import com.timur.library.managers.Config;
+import com.timur.library.managers.Message;
 import com.timur.library.services.IssuanceBookService;
-import com.timur.library.services.SearchService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ public class CommandOrderBook implements ICommand {
         Integer readerId=reader.getId();
         Reader user= (Reader) request.getSession().getAttribute("user");
         Boolean isAdmin=(Boolean)request.getSession().getAttribute("isAdmin");
-        if(issuanceBookService.queryOnBook(readerId,bookId,isAdmin)==0){
+        if(!issuanceBookService.queryOnBook(readerId,bookId,isAdmin)){
             request.getSession().setAttribute("message", Message.getInstance().getProperty(Message.BOOK_IS_NOT_AVAILABLE));
         }else{
             request.getSession().setAttribute("message", Message.getInstance().getProperty(Message.BOOK_ORDERED));

@@ -1,7 +1,7 @@
 package com.timur.library.servlet;
 
 import com.timur.library.commands.ICommand;
-import com.timur.library.manager.Message;
+import com.timur.library.managers.Message;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;

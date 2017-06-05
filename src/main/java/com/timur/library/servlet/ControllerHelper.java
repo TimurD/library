@@ -21,7 +21,7 @@ public class ControllerHelper {
     private ControllerHelper() {
         commands.put("login", new CommandLogin());
         commands.put("searchBooks",new CommandBookSearch());
-        commands.put("admin",new CommandAdmin());
+        commands.put("readers",new CommandReaders());
         commands.put("searchReaders",new CommandReadersSearch());
         commands.put("registration",new CommandRegistration());
         commands.put("addBook",new CommandAddBook());
@@ -40,6 +40,7 @@ public class ControllerHelper {
         commands.put("readingRoom",new CommandReadingRoom());
         commands.put("registrationPage",new CommandRegistrationPage());
         commands.put("deleteBook",new CommandDeleteBook());
+        commands.put("setBookAmount",new CommandSetBookAmount());
     }
 
     public ICommand getCommand(HttpServletRequest request) {

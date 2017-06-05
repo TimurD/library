@@ -3,7 +3,7 @@ package com.timur.library.tags;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.jsp.tagext.TagSupport;
-import com.timur.library.entities.Author;
+import com.timur.library.model.Author;
 import org.apache.log4j.Logger;
 
 /**

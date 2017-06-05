@@ -2,8 +2,8 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.RoleDAO;
-import com.timur.library.entities.Reader;
-import com.timur.library.entities.Role;
+import com.timur.library.model.Reader;
+import com.timur.library.model.Role;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

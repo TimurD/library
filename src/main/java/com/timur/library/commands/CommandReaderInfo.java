@@ -1,8 +1,8 @@
 package com.timur.library.commands;
 
-import com.timur.library.entities.Reader;
-import com.timur.library.entities.ReaderBook;
-import com.timur.library.manager.Config;
+import com.timur.library.model.Reader;
+import com.timur.library.model.ReaderBook;
+import com.timur.library.managers.Config;
 import com.timur.library.services.AdminService;
 import com.timur.library.services.IssuanceBookService;
 
@@ -31,7 +31,7 @@ public class CommandReaderInfo implements ICommand {
             request.getSession().setAttribute("reader", adminService.getReaderById(readerId));
             readerBooks = adminService.getBooksOfReaderForAdmin(readerId);
         } else {
-            readerBooks = adminService.getBooksOfReaderForReader(currentUser.getId());
+            readerBooks = issuanceBookService.getBooksOfReaderForReader(currentUser.getId());
         }
         request.setAttribute("readerBooks", readerBooks);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());

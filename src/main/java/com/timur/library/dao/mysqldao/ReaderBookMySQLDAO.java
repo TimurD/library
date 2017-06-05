@@ -2,7 +2,7 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.ReaderBookDAO;
-import com.timur.library.entities.*;
+import com.timur.library.model.*;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -28,7 +28,11 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
     private final String SELECT_READERS_QUERIES_ON_BOOKS = "SELECT  rb.id,r.email,r.id,rb.lend_date,rb.return_date,a.id,a.name,b.id,b.name FROM readers_books rb JOIN readers r ON rb.reader_id=r.id JOIN books b ON rb.book_id=b.id JOIN books_authors ba ON ba.book_id=b.id JOIN authors a ON ba.author_id=a.id WHERE rb.active=b'0'";
     private final String GET_BOOK_TO_READER = "UPDATE readers_books SET lend_date=?,return_date=?,active=b'1' WHERE id=?";
     private final String SELECT_BOOKS_FOR_READING_ROOM = "SELECT  rb.id,a.id,a.name,b.id,b.name FROM readers_books rb JOIN books b ON rb.book_id=b.id JOIN books_authors ba on ba.book_id=b.id JOIN authors a ON ba.author_id=a.id WHERE rb.reader_id IN (SELECT reader_id FROM readers_roles WHERE role_id=2)";
-    private final String SELECT_COUNT_BOOK_LENDERS = "SELECT COUNT(id) AS count FROM readers_books WHERE book_id=?";
+    private final String SELECT_COUNT_BOOK_LENDERS = "SELECT COUNT(id) AS count FROM readers_books WHERE book_id=? AND active=b'1'";
+    private final String DELETE_READERS_FOR_BOOK = "DELETE FROM readers_books WHERE book_id=?";
+    private final String READERS_BOOKS_ID="rb.id";
+    private final String AUTHOR_ID="a.id";
+    private final String AUTHOR_NAME="a.name";
     private final Long daysInMillis = 1000L * 60L * 60L * 24L;
 
 
@@ -48,8 +52,16 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         }
         return localInstance;
     }
+
+    /**
+     *
+     * @param readerId
+     * @param bookId
+     * @param isAdmin
+     * @return isSuccess
+     */
     @Override
-    public Integer readerTakeBook(Integer readerId, Integer bookId, Boolean isAdmin) {
+    public Boolean readerTakeBook(Integer readerId, Integer bookId, Boolean isAdmin) {
         Integer i = 0;
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(READER_SEND_QUERY_ON_BOOK)) {
@@ -61,8 +73,14 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         } catch (SQLException e) {
             LOGGER.error(e);
         }
-        return i;
+        return i!=0;
     }
+
+    /**
+     *
+     * @param id
+     * @param days
+     */
     @Override
     public void getBookToReader(Integer id, Integer days) {
         try (Connection connection = Connector.getConnection();
@@ -77,6 +95,11 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             LOGGER.error(e);
         }
     }
+
+    /**
+     *
+     * @param id
+     */
     @Override
     public void readerReturnBook(Integer id) {
         try (Connection connection = Connector.getConnection();
@@ -88,6 +111,11 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         }
     }
 
+    /**
+     *
+     * @param bookId
+     * @return isBookOrdered
+     */
     @Override
     public Boolean isBookOrdered(Integer bookId) {
         Boolean ordered = false;
@@ -104,6 +132,12 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         }
         return ordered;
     }
+
+    /**
+     *
+     * @param bookId
+     * @return all readers who take book
+     */
     @Override
     public List<ReaderBook> findReadersForBook(Integer bookId) {
         List<ReaderBook> readers = new ArrayList<>();
@@ -119,7 +153,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                     reader.setEmail(resultSet.getString("r.email"));
                     readerBook.setLendDate(resultSet.getTimestamp("rb.lend_date"));
                     readerBook.setReturnDate(resultSet.getTimestamp("rb.return_date"));
-                    readerBook.setId(resultSet.getInt("rb.id"));
+                    readerBook.setId(resultSet.getInt(READERS_BOOKS_ID));
                     readerBook.setReader(reader);
                     readers.add(readerBook);
                 }
@@ -129,10 +163,22 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         }
         return readers;
     }
+
+    /**
+     *
+     * @param readerId
+     * @return all active books of reader
+     */
     @Override
     public List<ReaderBook> findReaderBooksForAdmins(Integer readerId) {
         return findReaderBooks(readerId, SELECT_READER_BOOKS_FOR_ADMIN);
     }
+
+    /**
+     *
+     * @param readerId
+     * @return all books of reader
+     */
     @Override
     public List<ReaderBook> findReaderBooksForReader(Integer readerId) {
         return findReaderBooks(readerId, SELECT_BOOKS_FOR_READER);
@@ -153,6 +199,10 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         return books;
     }
 
+    /**
+     *
+     * @return all books which take admin
+     */
     @Override
     public List<ReaderBook> findBooksForReadingRoom() {
         List<ReaderBook> books = new ArrayList<>();
@@ -166,6 +216,11 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         return books;
     }
 
+
+    /**
+     *
+     * @return all inactive books
+     */
     @Override
     public List<ReaderBook> findBookOrders() {
         List<ReaderBook> books = new ArrayList<>();
@@ -179,15 +234,38 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         return books;
     }
 
+    /**
+     * delete book
+     * @param bookId
+     */
+    @Override
+    public void delete(Integer bookId) {
+        try (Connection connection=Connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_READERS_FOR_BOOK)) {
+            preparedStatement.setInt(1,bookId);
+            preparedStatement.executeUpdate();
 
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+    }
+
+    /**
+     *
+     * @param resultSet
+     * @param includeReaders
+     * @param readingRoom
+     * @return return result list
+     * @throws SQLException
+     */
     private List<ReaderBook> fillUpReaderBook(ResultSet resultSet, Boolean includeReaders, Boolean readingRoom) throws SQLException {
         Map<Integer, ReaderBook> readerBookHashMap = new HashMap<Integer, ReaderBook>();
         while (resultSet.next()) {
-            int id = resultSet.getInt("rb.id");
+            int id = resultSet.getInt(READERS_BOOKS_ID);
             if (readerBookHashMap.containsKey(id)) {
                 Author author = new Author();
-                author.setId(resultSet.getInt("a.id"));
-                author.setName(resultSet.getString("a.name"));
+                author.setId(resultSet.getInt(AUTHOR_ID));
+                author.setName(resultSet.getString(AUTHOR_NAME));
                 readerBookHashMap.get(id).getBook().addAuthor(author);
             } else {
                 ReaderBook readerBook = new ReaderBook();
@@ -199,7 +277,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 Book book = new Book();
                 book.setId(resultSet.getInt("b.id"));
                 book.setName(resultSet.getString("b.name"));
-                book.addAuthor(new Author(resultSet.getInt("a.id"), resultSet.getString("a.name")));
+                book.addAuthor(new Author(resultSet.getInt(AUTHOR_ID), resultSet.getString(AUTHOR_NAME)));
                 if (includeReaders) {
                     Reader reader = new Reader();
                     reader.setId(resultSet.getInt("r.id"));

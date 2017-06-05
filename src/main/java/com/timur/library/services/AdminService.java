@@ -2,8 +2,8 @@ package com.timur.library.services;
 
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
-import com.timur.library.entities.Reader;
-import com.timur.library.entities.ReaderBook;
+import com.timur.library.model.Reader;
+import com.timur.library.model.ReaderBook;
 
 import java.util.List;
 
@@ -46,9 +46,6 @@ public class AdminService {
 
     public List<ReaderBook>getBooksOfReaderForAdmin(Integer readerId){return mySQLDAO.getReaderBookDAO().findReaderBooksForAdmins(readerId);}
 
-    public List<ReaderBook>getBooksOfReaderForReader(Integer readerId){return mySQLDAO.getReaderBookDAO().findReaderBooksForReader(readerId);}
-
-
     public void readerReturnBook(Integer id) {
         mySQLDAO.getReaderBookDAO().readerReturnBook(id);
     }
@@ -74,11 +71,16 @@ public class AdminService {
     }
 
     public void deleteBook(Integer bookId){
+        mySQLDAO.getReaderBookDAO().delete(bookId);
         mySQLDAO.getAuthorsBookDAO().delete(bookId);
         mySQLDAO.getBookDAO().delete(bookId);
     }
 
     public Boolean isBookOrdered(Integer bookId){
         return mySQLDAO.getReaderBookDAO().isBookOrdered(bookId);
+    }
+
+    public void setBookAmount(Integer bookId, Integer amount) {
+        mySQLDAO.getBookDAO().setBookAmount(bookId,amount);
     }
 }

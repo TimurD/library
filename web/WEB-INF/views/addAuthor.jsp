@@ -51,7 +51,7 @@
 
             <div class="input-group-btn">
 
-                <button id="sendButton" class="btn btn-default" type="submit">Search</button>
+                <button id="sendButton" class="btn btn-default" type="submit">Search Author</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 package com.timur.library.dao.interfaces;
 
-import com.timur.library.entities.ReaderBook;
+import com.timur.library.model.ReaderBook;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ReaderBookDAO {
 
-    Integer readerTakeBook(Integer readerId, Integer bookId, Boolean isAdmin);
+    Boolean readerTakeBook(Integer readerId, Integer bookId, Boolean isAdmin);
     void getBookToReader(Integer id, Integer days);
     void readerReturnBook(Integer id);
     Boolean isBookOrdered(Integer bookId);
@@ -18,4 +18,6 @@ public interface ReaderBookDAO {
     List<ReaderBook> findReaderBooksForReader(Integer readerId);
     List<ReaderBook> findBooksForReadingRoom();
     List<ReaderBook> findBookOrders();
+
+    void delete(Integer bookId);
 }

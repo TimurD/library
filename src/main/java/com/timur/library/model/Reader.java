@@ -1,4 +1,4 @@
-package com.timur.library.entities;
+package com.timur.library.model;
 
 import java.util.List;
 

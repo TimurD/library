@@ -4,9 +4,9 @@
  */
 package com.timur.library.commands;
 
-import com.timur.library.entities.Reader;
-import com.timur.library.manager.Config;
-import com.timur.library.manager.Message;
+import com.timur.library.model.Reader;
+import com.timur.library.managers.Config;
+import com.timur.library.managers.Message;
 import com.timur.library.services.AuthorizationService;
 import com.timur.library.services.IssuanceBookService;
 import com.timur.library.services.SearchService;
@@ -16,9 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
- *
- * @author MAXIM
+ * Created by timur on 31.05.2017.
  */
 public class CommandLogin implements ICommand {
 

@@ -2,7 +2,7 @@ package com.timur.library.services;
 
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
-import com.timur.library.entities.*;
+import com.timur.library.model.*;
 
 import java.util.List;
 

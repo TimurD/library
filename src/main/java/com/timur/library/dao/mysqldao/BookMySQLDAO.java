@@ -3,9 +3,9 @@ package com.timur.library.dao.mysqldao;
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.BookDAO;
 
-import com.timur.library.entities.Author;
-import com.timur.library.entities.Book;
-import com.timur.library.entities.Genre;
+import com.timur.library.model.Author;
+import com.timur.library.model.Book;
+import com.timur.library.model.Genre;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -28,7 +28,7 @@ public class BookMySQLDAO implements BookDAO {
     private final String CREATE_BOOK = "INSERT INTO books (name,genre_id,amount) VALUES (?,?,?)";
     private final String SELECT_BOOK_BY_ID = SELECT_BOOKS + "WHERE b.id=?";
     private final String SELECT_BOOKS_BY_NAME = SELECT_BOOKS + "WHERE b.name like ?";
-    private final String UPDATE_BOOK_AMOUNT_BY_ID="UPDATE books SET amount=amount+? WHERE id=?";
+    private final String UPDATE_BOOK_AMOUNT_BY_ID="UPDATE books SET amount=? WHERE id=?";
     private final String SELECT_BOOK_OF_AUTHOR_BY_NAME = SELECT_BOOKS+"WHERE b.id in (SELECT book_id FROM books_authors WHERE author_id in (SELECT id FROM authors WHERE name like ?)) ";
     private final String SELECT_BOOKS_BY_GENRE=SELECT_BOOKS+"WHERE genre_id=?";
     private final String SELECT_BOOK_OF_AUTHOR_BY_ID = SELECT_BOOKS+"WHERE b.id in (SELECT book_id FROM books_authors WHERE author_id=?) ";
@@ -148,7 +148,7 @@ public class BookMySQLDAO implements BookDAO {
     }
 
     @Override
-    public void addBookAmount(Integer id, Integer amount) {
+    public void setBookAmount(Integer id, Integer amount) {
         try(Connection connection=Connector.getConnection();
             PreparedStatement preparedStatement=connection.prepareStatement(UPDATE_BOOK_AMOUNT_BY_ID)){
             preparedStatement.setInt(1,amount);

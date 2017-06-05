@@ -44,19 +44,19 @@
             <input class="form-control" type="number" name="amount" required="required" placeholder="Book Amount" onchange="handleChange(this);"> <br/>
         </div>
         <div class="form-group">
-        <select class="selectpicker" name="selectedGenre">
-            <c:forEach var="g" items="${genres}">
-                <option value="${g.id}">${g.name}</option>
-            </c:forEach>
-        </select>
+            <select class="selectpicker" name="selectedGenre">
+                <c:forEach var="g" items="${genres}">
+                    <option value="${g.id}">${g.name}</option>
+                </c:forEach>
+            </select>
         </div>
 
         <div class="form-group">
-        <select name="selectedAuthors" class="selectpicker" required="required" multiple>
-            <c:forEach var="a" items="${authors}">
-                <option value="${a.id}">${a.name}</option>
-            </c:forEach>
-        </select>
+            <select name="selectedAuthors" class="selectpicker" required="required" multiple>
+                <c:forEach var="a" items="${authors}">
+                    <option value="${a.id}">${a.name}</option>
+                </c:forEach>
+            </select>
         </div>
 
 
@@ -64,21 +64,21 @@
     </form>
     ${error}
 
-    <script>
-        function handleChange(input) {
-            if (input.value < 0) input.value = 0;
-            if (input.value > 100) input.value = 100;
-        }
-
-        $("#regions").change(function () {
-            if ($("option:selected:last", this).val() == 99) {
-                $('#regions option').prop('selected', true);
-            } else {
-                $('#regions option').prop('selected', false);
-            }
-        });
-    </script>
 
 </div>
+<script>
+    function handleChange(input) {
+        if (input.value < 0) input.value = 0;
+        if (input.value > 100) input.value = 100;
+    }
+
+    $("#regions").change(function () {
+        if ($("option:selected:last", this).val() == 99) {
+            $('#regions option').prop('selected', true);
+        } else {
+            $('#regions option').prop('selected', false);
+        }
+    });
+</script>
 </body>
 </html>

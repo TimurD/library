@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
-<c:import url="head.jsp"/>
+<c:import url="../WEB-INF/views/head.jsp"/>
 
 <div class="navbar navbar-inverse navbar-fixed-left">
     <h4 class="navbar-brand"> Genres</h4>
@@ -59,22 +59,37 @@
             <div class="product col-md-12 col-sm-4 col-xs-12">
                 <div class="thumbnail">
                     <h4>
-                    <c:choose>
-                        <c:when test="${isAdmin}">
-                            <a href="/Controller?command=bookLenders&id=${b.id}"> ${b.name}</a>
-                        </c:when>
-                        <c:otherwise>
-                            ${b.name}
-                        </c:otherwise>
-                    </c:choose>
-                </h4>
+                        <c:choose>
+                            <c:when test="${isAdmin}">
+                                <a href="/Controller?command=bookLenders&id=${b.id}"> ${b.name}</a>
+                            </c:when>
+                            <c:otherwise>
+                                ${b.name}
+                            </c:otherwise>
+                        </c:choose>
+                    </h4>
                     <p>Authors:
                         <c:forEach items="${b.authors}" var="a">
                             <a href="/Controller?command=allOfAuthor&id=${a.id}"> ${a.name}</a> &nbsp;
                         </c:forEach>
                     </p>
                     <p>Genre:${b.genre.name}</p>
-                    <p>Amount:${b.amount}</p>
+                    <p>Amount:
+                        <c:choose>
+                        <c:when test="${isAdmin}">
+                    <form name="setAmount" method="POST" action="Controller">
+                        <input type="hidden" name="command" value="setBookAmount"/>
+                        <input type="hidden" name="bookId" value="${b.id}"/>
+                        <input class="form-control" type="number" name="amount" required="required" value="${b.amount}"
+                               placeholder="Book Amount" onchange="handleChange(this);">
+                    <button type="submit" class="btn btn-default">Set amount</button>
+                </form>
+                    </c:when>
+                    <c:otherwise>
+                        ${b.amount}
+                    </c:otherwise>
+                    </c:choose>
+                    </p>
                     <c:choose>
                         <c:when test="${b.amount>0}">
                             <p><a class="btn btn-default" href="/Controller?command=orderBook&id=${b.id}" role="button">Order
@@ -96,8 +111,23 @@
 
 
     <hr/>
-
 </div>
+
+<script>
+    function handleChange(input) {
+        if (input.value < 0) input.value = 0;
+        if (input.value > 100) input.value = 100;
+    }
+
+    $("#regions").change(function () {
+        if ($("option:selected:last", this).val() == 99) {
+            $('#regions option').prop('selected', true);
+        } else {
+            $('#regions option').prop('selected', false);
+        }
+    });
+</script>
+
 </body>
 </html>
 

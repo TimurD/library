@@ -37,13 +37,12 @@
                 <li> <a href="/Controller?command=readerInfo">My books</a> </li>
                 </c:if>
                 <c:if test="${isAdmin}">
-                <li> <a href="/Controller?command=admin">Admin page</a> </li>
+                <li> <a href="/Controller?command=readers">Readers</a> </li>
                 <li> <a href="/Controller?command=orders">Orders</a> </li>
                 <li> <a href="/Controller?command=readingRoom">Reading room</a> </li>
 
                 <li> <a href="/Controller?command=addBook">Add book</a></li>
                 <li> <a href="/Controller?command=addAuthor">Add author</a></li>
-                <li> <a href="/Controller?command=addGenre">Add genre</a></li>
                 </c:if>
 
             </ul>

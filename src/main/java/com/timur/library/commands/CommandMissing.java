@@ -4,7 +4,7 @@
  */
 package com.timur.library.commands;
 
-import com.timur.library.manager.Config;
+import com.timur.library.managers.Config;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author MAXIM
+ * Created by timur on 31.05.2017.
  */
 public class CommandMissing implements ICommand {
 

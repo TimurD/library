@@ -2,7 +2,7 @@ package com.timur.library.services;
 
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
-import com.timur.library.entities.Reader;
+import com.timur.library.model.Reader;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

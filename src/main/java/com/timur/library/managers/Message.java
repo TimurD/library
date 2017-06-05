@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.timur.library.manager;
+package com.timur.library.managers;
 
 import java.util.ResourceBundle;
 

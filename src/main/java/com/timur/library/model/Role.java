@@ -1,4 +1,4 @@
-package com.timur.library.entities;
+package com.timur.library.model;
 
 /**
  * Created by timur on 21.05.2017.

@@ -1,6 +1,6 @@
 package com.timur.library.commands;
 
-import com.timur.library.manager.Config;
+import com.timur.library.managers.Config;
 import com.timur.library.services.AdminService;
 
 
@@ -27,7 +27,7 @@ public class CommandReadersSearch implements ICommand {
             request.setAttribute("readers", adminService.getReadersByName(text));
         else
             request.setAttribute("readers", adminService.getReadersByEmail(text));
-        page = Config.getInstance().getProperty(Config.ADMIN);
+        page = Config.getInstance().getProperty(Config.READERS);
 
         return page;
     }

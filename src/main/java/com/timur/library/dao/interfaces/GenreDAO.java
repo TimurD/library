@@ -1,7 +1,7 @@
 package com.timur.library.dao.interfaces;
 
 
-import com.timur.library.entities.Genre;
+import com.timur.library.model.Genre;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.timur.library.commands;
 
-import com.timur.library.manager.Config;
+import com.timur.library.managers.Config;
 import com.timur.library.services.AdminService;
 
 import javax.servlet.ServletException;

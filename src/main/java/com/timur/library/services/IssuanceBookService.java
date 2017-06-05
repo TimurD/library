@@ -2,7 +2,8 @@ package com.timur.library.services;
 
 import com.timur.library.dao.factory.DAOFactory;
 import com.timur.library.dao.factory.DAOTypes;
-import com.timur.library.entities.Role;
+import com.timur.library.model.ReaderBook;
+import com.timur.library.model.Role;
 
 import java.util.List;
 
@@ -32,9 +33,12 @@ public class IssuanceBookService {
         return localInstance;
     }
 
-    public Integer queryOnBook(Integer readerId, Integer bookId, boolean isAdmin) {
+    public Boolean queryOnBook(Integer readerId, Integer bookId, boolean isAdmin) {
         return mySQLDAO.getReaderBookDAO().readerTakeBook(readerId, bookId,isAdmin);
     }
+
+    public List<ReaderBook>getBooksOfReaderForReader(Integer readerId){return mySQLDAO.getReaderBookDAO().findReaderBooksForReader(readerId);}
+
 
     public boolean isAdmin(List<Role> roles) {
         for(Role role:roles){

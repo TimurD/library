@@ -2,7 +2,7 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.GenreDAO;
-import com.timur.library.entities.Genre;
+import com.timur.library.model.Genre;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

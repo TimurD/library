@@ -1,6 +1,6 @@
 package com.timur.library.commands;
 
-import com.timur.library.manager.Config;
+import com.timur.library.managers.Config;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

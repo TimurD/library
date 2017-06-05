@@ -2,7 +2,7 @@
 <taglib>
     <jsp-version>2.0</jsp-version>
     <tlib-version>1.0</tlib-version>
-    <short-name>librarytag</short-name>
+    <short-name>customtags</short-name>
     <uri>/WEB-INF/tld/customtags.tld</uri>
 
     <tag>

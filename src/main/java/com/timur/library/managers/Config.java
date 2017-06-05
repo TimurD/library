@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.timur.library.manager;
+package com.timur.library.managers;
 
 import java.util.ResourceBundle;
 
@@ -19,13 +19,12 @@ public class Config {
     private static final String BUNDLE_NAME = "config";
     public static final String MAIN = "MAIN";
     public static final String LOGIN = "LOGIN";
-    public static final String ADMIN="ADMIN";
+    public static final String READERS ="READERS";
     public static final String REGISTRATION="REGISTRATION";
     public static final String ADD_BOOK ="ADD_BOOK";
     public static final String BOOK_LENDERS = "BOOK_LENDERS";
     public static final String READER_INFO ="READER_INFO";
     public static final String ADD_AUTHOR ="ADD_AUTHOR";
-    public static final String ADD_GENRE ="ADD_GENRE" ;
     public static final String ORDERS = "ORDERS";
     public static final String READING_ROOM="READING_ROOM";
 
