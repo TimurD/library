@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="ct" uri="/WEB-INF/tld/customtags.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: timur
@@ -11,6 +12,10 @@
 <html>
 
 <c:import url="../WEB-INF/views/head.jsp"/>
+<c:import url="/WEB-INF/views/header.jsp"/>
+
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
 
 <div class="navbar navbar-inverse navbar-fixed-left">
     <h4 class="navbar-brand"> Genres</h4>
@@ -35,7 +40,9 @@
 
                 <div class="input-group-btn">
                     <select name="selected" class="form-control" style="width: 145px;">
-                        <option value="bookName">Book name</option>
+                        <option value="bookName">
+                            <fmt:message key="main.bookName" bundle="${lang}"/>
+                        </option>
                         <option value="authorName">Author name</option>
                     </select>
 

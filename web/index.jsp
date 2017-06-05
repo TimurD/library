@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: timur
@@ -8,24 +9,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-  <title>JSP Page</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<c:import url="WEB-INF/views/head.jsp"/>
 
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-</head>
-<body>
 <div class="container">
 <form  class="form-signin" name="loginForm" method="POST" action="Controller">
   <input type="hidden" name="command" value ="login"/>
-  Login:<br/>
+  <fmt:message key="login.email" bundle="${lang}"/> :<br/>
   <input class="form-control" required="required" placeholder="Email" type="text" name="login" value ="${email}"> <br/>
-  Password:<br/>
+    <fmt:message key="login.password" bundle="${lang}"/>:<br/>
   <input class="form-control" required="required" placeholder="Password" type="password" name ="password" value="">
   <br/>
   <a href="/Controller?command=registrationPage">Registration</a>

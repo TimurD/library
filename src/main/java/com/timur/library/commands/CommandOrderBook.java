@@ -4,6 +4,7 @@ import com.timur.library.model.Reader;
 import com.timur.library.managers.Config;
 import com.timur.library.managers.Message;
 import com.timur.library.services.IssuanceBookService;
+import com.timur.library.services.SearchService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.io.IOException;
  */
 public class CommandOrderBook implements ICommand {
     private IssuanceBookService issuanceBookService=IssuanceBookService.getInstance();
+    private SearchService searchService=SearchService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,7 +29,7 @@ public class CommandOrderBook implements ICommand {
             request.getSession().setAttribute("message", Message.getInstance().getProperty(Message.BOOK_IS_NOT_AVAILABLE));
         }else{
             request.getSession().setAttribute("message", Message.getInstance().getProperty(Message.BOOK_ORDERED));
-
+            request.getSession().setAttribute("books", searchService.findAllBooks());
         }
         response.sendRedirect(Config.getInstance().getProperty(Config.MAIN));
         return null;

@@ -12,6 +12,8 @@
 <html>
 
 <c:import url="head.jsp"/>
+<c:import url="header.jsp"/>
+
 
 <h3>${reader.name}</h3>
 <div class="col-md-12">

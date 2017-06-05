@@ -41,6 +41,7 @@ public class ControllerHelper {
         commands.put("registrationPage",new CommandRegistrationPage());
         commands.put("deleteBook",new CommandDeleteBook());
         commands.put("setBookAmount",new CommandSetBookAmount());
+        commands.put("switch_lang",new CommandSwitchLang());
     }
 
     public ICommand getCommand(HttpServletRequest request) {

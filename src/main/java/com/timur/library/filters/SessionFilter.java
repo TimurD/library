@@ -1,5 +1,7 @@
 package com.timur.library.filters;
 
+import com.timur.library.managers.Config;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +29,8 @@ public class SessionFilter implements Filter {
         if(command!=null&&(command.equals("login")||command.equals("registration")||command.equals("registrationPage"))) {
             allowedRequest = true;
         }
-        if (!allowedRequest&&(request.getSession(false)==null||request.getSession(false).getAttribute("user")==null)) {
-                response.sendRedirect("index.jsp");
+        if (!allowedRequest&&(request.getSession(false)==null||request.getSession().getAttribute("user")==null)) {
+                response.sendRedirect(Config.getInstance().getProperty(Config.LOGIN));
         }else {
             filterChain.doFilter(request, response);
         }
