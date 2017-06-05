@@ -12,10 +12,7 @@ import java.util.ResourceBundle;
 public class Message {
 
 
-    public static final String INPUT_NAME ="INPUT_NAME" ;
-    public static final String BOOK_ORDERED ="BOOK_ORDERED" ;
-    public static final String BOOK_DELETED ="BOOK_DELETED";
-    public static final String CANT_DELETE_BOOK ="CANT_DELETE_BOOK" ;
+
     private static Message instance;
     private ResourceBundle resource;
     private static final String BUNDLE_NAME = "messages";
@@ -26,11 +23,13 @@ public class Message {
     public static final String NAME_ERROR="NAME_ERROR";
     public static final String PASSWORD_ERROR="PASSWORD_ERROR";
     public static final String AUTHOR_ALREADY_EXIST_ERROR ="AUTHOR_ALREADY_EXIST_ERROR";
-    public static final String ADD_BOOK_ERROR ="ADD_BOOK_ERROR";
     public static final String GENRE_ALREADY_EXIST_ERROR = "GENRE_ALREADY_EXIST_ERROR";
     public static final String BOOK_IS_NOT_AVAILABLE ="BOOK_IS_NOT_AVAILABLE" ;
     public static final String GENRE_ADDED="GENRE_ADDED";
     public static final String AUTHOR_ADDED ="AUTHOR_ADDED";
+    public static final String BOOK_ORDERED ="BOOK_ORDERED";
+    public static final String BOOK_DELETED ="BOOK_DELETED";
+    public static final String CANT_DELETE_BOOK ="CANT_DELETE_BOOK";
 
     public static Message getInstance() {
         if (instance == null) {

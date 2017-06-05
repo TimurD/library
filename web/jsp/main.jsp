@@ -14,7 +14,7 @@
 <c:import url="../WEB-INF/views/head.jsp"/>
 <c:import url="/WEB-INF/views/header.jsp"/>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locales.locale" var="lang"/>
 
 <div class="navbar navbar-inverse navbar-fixed-left">
@@ -84,7 +84,7 @@
                     <p>Amount:
                         <c:choose>
                         <c:when test="${isAdmin}">
-                    <form name="setAmount" method="POST" action="Controller">
+                    <form name="setAmount" method="POST" action="/Controller">
                         <input type="hidden" name="command" value="setBookAmount"/>
                         <input type="hidden" name="bookId" value="${b.id}"/>
                         <input class="form-control" type="number" name="amount" required="required" value="${b.amount}"

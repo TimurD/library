@@ -11,7 +11,7 @@
 <html>
 <c:import url="WEB-INF/views/head.jsp"/>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locales.locale" var="lang"/>
 
 <div class="container">
