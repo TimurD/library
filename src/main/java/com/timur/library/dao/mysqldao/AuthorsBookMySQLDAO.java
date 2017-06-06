@@ -50,7 +50,7 @@ public class AuthorsBookMySQLDAO implements AuthorsBookDAO {
             preparedStatement.executeBatch();
 
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -62,7 +62,7 @@ public class AuthorsBookMySQLDAO implements AuthorsBookDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 

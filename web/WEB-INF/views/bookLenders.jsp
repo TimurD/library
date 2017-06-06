@@ -49,7 +49,7 @@ ${book.name}
                     <button type="submit" class="btn btn-success">Return</button></form>
                 </td>
                 <td>
-                    <ct:return-remind returnDate="${rb.returnDate}"/>
+                    <ct:days-left returnDate="${rb.returnDate}"/>
                 </td>
             </tr>
         </c:forEach>

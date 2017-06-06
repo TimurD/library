@@ -2,7 +2,7 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.GenreDAO;
-import com.timur.library.model.Genre;
+import com.timur.library.models.Genre;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -62,7 +62,7 @@ public class GenreMySQLDAO implements GenreDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return genre;
     }
@@ -77,7 +77,7 @@ public class GenreMySQLDAO implements GenreDAO {
                 genres.add(new Genre(resultSet.getInt("id"),resultSet.getString("name")));
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return genres;
     }
@@ -90,7 +90,7 @@ public class GenreMySQLDAO implements GenreDAO {
             preparedStatement.setString(1,genreName);
             i= preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return i;
     }

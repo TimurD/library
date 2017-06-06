@@ -2,8 +2,8 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.RoleDAO;
-import com.timur.library.model.Reader;
-import com.timur.library.model.Role;
+import com.timur.library.models.Reader;
+import com.timur.library.models.Role;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -57,7 +57,7 @@ public class RoleMySQLDAO implements RoleDAO{
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return roles;
     }

@@ -2,7 +2,7 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.ReaderDAO;
-import com.timur.library.model.Reader;
+import com.timur.library.models.Reader;
 import org.apache.log4j.Logger;
 
 import java.math.BigInteger;
@@ -36,7 +36,6 @@ public class ReaderMySQLDAO implements ReaderDAO {
     private final String INSERT_READER = "INSERT INTO readers (name,password,email) VALUES (?,?,?)";
     private final String SELECT_READERS_FOR_HOST = "SELECT id,name,email,true as admin from readers where id in (select reader_id from readers_roles where role_id=2) union SELECT id,name,email,false as admin from readers where id not in (select reader_id from readers_roles where role_id=2)";
 
-    private final String HASH_CHANGER = "MD5";
 
 
     public static ReaderMySQLDAO getInstance() {
@@ -97,7 +96,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
                 readers.add(reader);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return readers;
     }
@@ -105,9 +104,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
 
     @Override
     public Reader login(String email, String password) {
-        MessageDigest md = null;
         Reader reader = null;
-        password = hashPassword(password);
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_READER_BY_LOGIN_INFORMATION)) {
             preparedStatement.setString(1, email);
@@ -121,7 +118,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(),e);
         }
         return reader;
     }
@@ -130,30 +127,16 @@ public class ReaderMySQLDAO implements ReaderDAO {
     public void create(Reader reader) {
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_READER)) {
-            String hashtext = hashPassword(reader.getPassword());
             preparedStatement.setString(1, reader.getName());
-            preparedStatement.setString(2, hashtext);
+            preparedStatement.setString(2, reader.getPassword());
             preparedStatement.setString(3, reader.getEmail());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
 
     }
 
-    private String hashPassword(String password) {
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance(HASH_CHANGER);
-        } catch (NoSuchAlgorithmException e) {
-            LOGGER.error(e);
-        }
-        md.reset();
-        md.update(password.getBytes());
-        byte[] digest = md.digest();
-        BigInteger bigInt = new BigInteger(1, digest);
-        return bigInt.toString(16);
-    }
 
 
     private List<Reader> findByDynamicSelect(String sql, Object[] sqlParams) {
@@ -167,7 +150,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return new ArrayList<>();
     }

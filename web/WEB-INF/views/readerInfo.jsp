@@ -59,7 +59,7 @@
                     </td>
                 </c:if>
                 <td>
-                    <ct:return-remind returnDate="${rb.returnDate}"/>
+                    <ct:days-left returnDate="${rb.returnDate}"/>
                 </td>
             </tr>
         </c:forEach>

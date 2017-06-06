@@ -2,8 +2,8 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.AuthorDAO;
-import com.timur.library.model.Author;
-import com.timur.library.model.Book;
+import com.timur.library.models.Author;
+import com.timur.library.models.Book;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -25,7 +25,6 @@ public class AuthorMySQLDAO implements AuthorDAO {
     private final String CREATE_AUTHOR = "INSERT INTO authors (name) VALUES (?)";
     private final String SELECT_AUTHOR_BY_ID = SELECT_AUTHOR + "WHERE id=?";
     private final String SELECT_AUTHOR_BY_NAME = SELECT_AUTHOR + "WHERE name LIKE ?";
-    private final String DELETE_AUTHOR = "DELETE FROM authors WHERE id=?";
     private final String SELECT_AUTHOR_FOR_BOOK = "SELECT * FROM authors WHERE id IN(SELECT author_id FROM books_authors WHERE book_id=?)";
 
     private static volatile AuthorMySQLDAO authorMySQLDAO;
@@ -43,7 +42,8 @@ public class AuthorMySQLDAO implements AuthorDAO {
         return localInstance;
     }
 
-    private AuthorMySQLDAO(){}
+    private AuthorMySQLDAO() {
+    }
 
     @Override
     public List<Author> findByName(String name) {
@@ -61,7 +61,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
             }
 
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return authors;
     }
@@ -80,7 +80,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
             }
 
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(),e);
         }
 
         return author;
@@ -97,7 +97,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
                 authors.add(new Author(resultSet.getInt("id"), resultSet.getString("name")));
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
 
         return authors;
@@ -111,7 +111,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
             preparedStatement.setString(1, authorName);
             i = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return i;
     }
@@ -128,7 +128,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return authors;
     }

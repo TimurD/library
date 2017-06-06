@@ -6,6 +6,23 @@ package com.timur.library.servlet;
 
 
 import com.timur.library.commands.*;
+import com.timur.library.commands.authorization.CommandLogin;
+import com.timur.library.commands.authorization.CommandLogout;
+import com.timur.library.commands.authorization.CommandRegistration;
+import com.timur.library.commands.authorization.CommandRegistrationPage;
+import com.timur.library.commands.adding.CommandAddAuthor;
+import com.timur.library.commands.adding.CommandAddBook;
+import com.timur.library.commands.adding.CommandAddGenre;
+import com.timur.library.commands.admin.*;
+import com.timur.library.commands.host.CommandSetRole;
+import com.timur.library.commands.readers.CommandMainMenu;
+import com.timur.library.commands.readers.CommandMissing;
+import com.timur.library.commands.readers.CommandOrderBook;
+import com.timur.library.commands.readers.CommandSwitchLang;
+import com.timur.library.commands.search.CommandAuthorBooks;
+import com.timur.library.commands.search.CommandAuthorsSearch;
+import com.timur.library.commands.search.CommandBookSearch;
+import com.timur.library.commands.search.CommandReadersSearch;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -41,7 +58,7 @@ public class ControllerHelper {
         commands.put("registrationPage",new CommandRegistrationPage());
         commands.put("deleteBook",new CommandDeleteBook());
         commands.put("setBookAmount",new CommandSetBookAmount());
-        commands.put("switch_lang",new CommandSwitchLang());
+        commands.put("switchLang",new CommandSwitchLang());
         commands.put("setRole",new CommandSetRole());
     }
 

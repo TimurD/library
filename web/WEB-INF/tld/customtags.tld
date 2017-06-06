@@ -6,8 +6,8 @@
     <uri>/WEB-INF/tld/customtags.tld</uri>
 
     <tag>
-        <name>return-remind</name>
-        <tag-class>com.timur.library.tags.DateReminderTag</tag-class>
+        <name>days-left</name>
+        <tag-class>com.timur.library.tags.DaysLeftTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>returnDate</name>

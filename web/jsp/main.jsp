@@ -18,7 +18,7 @@
 <fmt:setBundle basename="locales.locale" var="lang"/>
 
 <div class="navbar navbar-inverse navbar-fixed-left">
-    <h4 class="navbar-brand"> Genres</h4>
+    <h4 class="navbar-brand"> <fmt:message bundle="${lang}" key="main.Genres"/> </h4>
     <ul class="nav navbar-nav">
         <c:forEach items="${genres}" var="g">
             <li><a href="/Controller?command=searchBooks&id=${g.id}">${g.name}</a></li>
@@ -39,14 +39,18 @@
                 <input type="text" name="search" class="form-control">
 
                 <div class="input-group-btn">
-                    <select name="selected" class="form-control" style="width: 145px;">
+                    <select name="selected" class="form-control" style="width: 155px;">
                         <option value="bookName">
                             <fmt:message key="main.bookName" bundle="${lang}"/>
                         </option>
-                        <option value="authorName">Author name</option>
+                        <option value="authorName">
+                            <fmt:message key="main.authorName" bundle="${lang}"/>
+                        </option>
                     </select>
 
-                    <button id="sendButton" class="btn btn-default" type="submit">Search</button>
+                    <button id="sendButton" class="btn btn-default" type="submit">
+                        <fmt:message key="main.search" bundle="${lang}"/>
+                    </button>
                 </div>
             </div>
         </div>
@@ -75,13 +79,13 @@
                             </c:otherwise>
                         </c:choose>
                     </h4>
-                    <p>Authors:
+                    <p><fmt:message key="main.authors" bundle="${lang}"/>:
                         <c:forEach items="${b.authors}" var="a">
                             <a href="/Controller?command=allOfAuthor&id=${a.id}"> ${a.name}</a> &nbsp;
                         </c:forEach>
                     </p>
-                    <p>Genre:${b.genre.name}</p>
-                    <p>Amount:
+                    <p><fmt:message key="main.genre" bundle="${lang}"/>:${b.genre.name}</p>
+                    <p><fmt:message key="main.amount" bundle="${lang}"/>:
                         <c:choose>
                         <c:when test="${user.admin}">
                     <form name="setAmount" method="POST" action="/Controller">
@@ -89,7 +93,7 @@
                         <input type="hidden" name="bookId" value="${b.id}"/>
                         <input class="form-control" type="number" name="amount" required="required" value="${b.amount}"
                                placeholder="Book Amount" onchange="handleChange(this);">
-                    <button type="submit" class="btn btn-default">Set amount</button>
+                    <button type="submit" class="btn btn-default"><fmt:message key="main.setAmount" bundle="${lang}"/></button>
                     </form>
                     </c:when>
                     <c:otherwise>
@@ -99,16 +103,21 @@
                     </p>
                     <c:choose>
                         <c:when test="${b.amount>0}">
-                            <p><a class="btn btn-default" href="/Controller?command=orderBook&id=${b.id}" role="button">Order
-                                book »</a></p>
+                            <p><a class="btn btn-default" href="/Controller?command=orderBook&id=${b.id}" role="button">
+                                <fmt:message key="main.orderBook" bundle="${lang}"/>
+                                »</a></p>
                         </c:when>
                         <c:otherwise>
-                            <p>Sorry, this book is not available</p>
+                            <p>
+                                <fmt:message key="main.bookNotAvailable" bundle="${lang}"/>
+                            </p>
                         </c:otherwise>
                     </c:choose>
                     <c:if test="${user.admin}">
                         <a href="/Controller?command=deleteBook&bookId=${b.id}" role="button" class="btn btn-danger"
-                           onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                           onclick="return confirm('Are you sure you want to delete?')">
+                            <fmt:message key="main.delete" bundle="${lang}"/>
+                        </a>
                     </c:if>
                 </div>
             </div>

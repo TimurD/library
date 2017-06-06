@@ -4,6 +4,7 @@
  */
 package com.timur.library.managers;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -12,34 +13,32 @@ import java.util.ResourceBundle;
 public class Message {
 
 
+    private static final String BUNDLE_NAME = "locales.locale";
+    private static final String EN = "en_US";
+    private static final String RU  ="ru_RU";
+    private static final ResourceBundle MESSAGE_RU = ResourceBundle.getBundle(BUNDLE_NAME+"_"+RU);
+    private static final ResourceBundle MESSAGE_EN = ResourceBundle.getBundle(BUNDLE_NAME+"_"+EN);
 
-    private static Message instance;
-    private ResourceBundle resource;
-    private static final String BUNDLE_NAME = "messages";
-    public static final String SERVLET_EXECPTION = "SERVLET_EXCEPTION";
-    public static final String IO_EXCEPTION = "IO_EXCEPTION";
-    public static final String LOGIN_ERROR = "LOGIN_ERROR";
-    public static final String EMAIL_ERROR="EMAIL_ERROR";
-    public static final String NAME_ERROR="NAME_ERROR";
-    public static final String PASSWORD_ERROR="PASSWORD_ERROR";
-    public static final String AUTHOR_ALREADY_EXIST_ERROR ="AUTHOR_ALREADY_EXIST_ERROR";
-    public static final String GENRE_ALREADY_EXIST_ERROR = "GENRE_ALREADY_EXIST_ERROR";
-    public static final String BOOK_IS_NOT_AVAILABLE ="BOOK_IS_NOT_AVAILABLE" ;
-    public static final String GENRE_ADDED="GENRE_ADDED";
-    public static final String AUTHOR_ADDED ="AUTHOR_ADDED";
-    public static final String BOOK_ORDERED ="BOOK_ORDERED";
-    public static final String BOOK_DELETED ="BOOK_DELETED";
-    public static final String CANT_DELETE_BOOK ="CANT_DELETE_BOOK";
+    public static final String SERVLET_EXECPTION = "message.servletException";
+    public static final String IO_EXCEPTION = "message.IOexception";
+    public static final String LOGIN_ERROR = "message.loginError";
+    public static final String EMAIL_ERROR="message.emailError";
+    public static final String NAME_ERROR="message.nameError";
+    public static final String PASSWORD_ERROR="message.passwordError";
+    public static final String AUTHOR_ALREADY_EXIST_ERROR ="message.authorExistError";
+    public static final String GENRE_ALREADY_EXIST_ERROR = "message.genreExistError";
+    public static final String BOOK_IS_NOT_AVAILABLE ="message.bookIsNotAvailable";
+    public static final String GENRE_ADDED="message.genreAdded";
+    public static final String AUTHOR_ADDED ="message.authorAdded";
+    public static final String BOOK_ORDERED ="message.bookOrdered";
+    public static final String BOOK_DELETED ="message.bookDeleted";
+    public static final String CANT_DELETE_BOOK ="message.cannotDeleteBook";
 
-    public static Message getInstance() {
-        if (instance == null) {
-            instance = new Message();
-            instance.resource = ResourceBundle.getBundle(BUNDLE_NAME);
+
+    public static ResourceBundle getInstance(String locale) {
+        if (locale==null||locale.equals(EN)) {
+            return MESSAGE_EN;
         }
-        return instance;
-    }
-
-    public String getProperty(String key) {
-        return (String) resource.getObject(key);
+        return MESSAGE_RU;
     }
 }

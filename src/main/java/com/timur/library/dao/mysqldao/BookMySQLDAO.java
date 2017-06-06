@@ -3,9 +3,9 @@ package com.timur.library.dao.mysqldao;
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.BookDAO;
 
-import com.timur.library.model.Author;
-import com.timur.library.model.Book;
-import com.timur.library.model.Genre;
+import com.timur.library.models.Author;
+import com.timur.library.models.Book;
+import com.timur.library.models.Genre;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -66,7 +66,7 @@ public class BookMySQLDAO implements BookDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
@@ -82,7 +82,7 @@ public class BookMySQLDAO implements BookDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
@@ -98,7 +98,7 @@ public class BookMySQLDAO implements BookDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return book;
     }
@@ -111,7 +111,7 @@ public class BookMySQLDAO implements BookDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
              books= fillUpBook(resultSet);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
@@ -127,7 +127,7 @@ public class BookMySQLDAO implements BookDAO {
                 books=fillUpBook(resultSet);
             }
         }catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
@@ -142,7 +142,7 @@ public class BookMySQLDAO implements BookDAO {
                 books=fillUpBook(resultSet);
             }
         }catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
@@ -155,7 +155,7 @@ public class BookMySQLDAO implements BookDAO {
             preparedStatement.setInt(2,id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
@@ -173,7 +173,7 @@ public class BookMySQLDAO implements BookDAO {
                     id=resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return id;
     }
@@ -186,7 +186,7 @@ public class BookMySQLDAO implements BookDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 

@@ -1,7 +1,7 @@
 package com.timur.library.dao.interfaces;
 
-import com.timur.library.model.Author;
-import com.timur.library.model.Book;
+import com.timur.library.models.Author;
+import com.timur.library.models.Book;
 
 import java.util.List;
 

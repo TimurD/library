@@ -13,7 +13,9 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand">Library</a>
+            <a class="navbar-brand">
+                <fmt:message key="header.library" bundle="${lang}"/>
+            </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -51,10 +53,10 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/Controller?command=switch_lang&lang=ru_RU">
+                <li><a href="/Controller?command=switchLang&lang=ru_RU">
                     <fmt:message key="header.ru" bundle="${lang}"/>
                 </a></li>
-                <li><a href="/Controller?command=switch_lang&lang=en_US">
+                <li><a href="/Controller?command=switchLang&lang=en_US">
                     <fmt:message key="header.en" bundle="${lang}"/>
                 </a></li>
                 <li></li>
@@ -70,7 +72,7 @@
     </div>
 </nav>
 
-<h3><c:out value="${user.name}, Hello!"/></h3>
+<h3><c:out value="${user.name}"/>, <fmt:message key="header.hello" bundle="${lang}"/></h3>
 <hr/>
 
 

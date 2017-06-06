@@ -2,7 +2,7 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.ReaderBookDAO;
-import com.timur.library.model.*;
+import com.timur.library.models.*;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -55,13 +55,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         return localInstance;
     }
 
-    /**
-     *
-     * @param readerId
-     * @param bookId
-     * @param isAdmin
-     * @return isSuccess
-     */
+
     @Override
     public Boolean readerTakeBook(Integer readerId, Integer bookId, Boolean isAdmin) {
         Integer i = 0;
@@ -78,11 +72,6 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         return i!=0;
     }
 
-    /**
-     *
-     * @param id
-     * @param days
-     */
     @Override
     public void getBookToReader(Integer id, Integer days) {
         try (Connection connection = Connector.getConnection();
@@ -146,11 +135,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         return ordered;
     }
 
-    /**
-     *
-     * @param bookId
-     * @return all readers who take book
-     */
+
     @Override
     public List<ReaderBook> findReadersForBook(Integer bookId) {
         List<ReaderBook> readers = new ArrayList<>();
@@ -177,21 +162,13 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
         return readers;
     }
 
-    /**
-     *
-     * @param readerId
-     * @return all active books of reader
-     */
+
     @Override
     public List<ReaderBook> findReaderBooksForAdmins(Integer readerId) {
         return findReaderBooks(readerId, SELECT_READER_BOOKS_FOR_ADMIN);
     }
 
-    /**
-     *
-     * @param readerId
-     * @return all books of reader
-     */
+
     @Override
     public List<ReaderBook> findReaderBooksForReader(Integer readerId) {
         return findReaderBooks(readerId, SELECT_BOOKS_FOR_READER);
@@ -207,15 +184,11 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 books = fillUpReaderBook(resultSet, false, false);
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
 
-    /**
-     *
-     * @return all books which take admin
-     */
     @Override
     public List<ReaderBook> findBooksForReadingRoom() {
         List<ReaderBook> books = new ArrayList<>();
@@ -224,16 +197,13 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
             books = fillUpReaderBook(resultSet, false, true);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
 
 
-    /**
-     *
-     * @return all inactive books
-     */
+
     @Override
     public List<ReaderBook> findBookOrders() {
         List<ReaderBook> books = new ArrayList<>();
@@ -242,15 +212,12 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
             books = fillUpReaderBook(resultSet, true, false);
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return books;
     }
 
-    /**
-     * delete book
-     * @param bookId
-     */
+
     @Override
     public void deleteForBook(Integer bookId) {
         delete(bookId,DELETE_READERS_FOR_BOOK);
@@ -269,18 +236,10 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
-    /**
-     *
-     * @param resultSet
-     * @param includeReaders
-     * @param readingRoom
-     * @return return result list
-     * @throws SQLException
-     */
     private List<ReaderBook> fillUpReaderBook(ResultSet resultSet, Boolean includeReaders, Boolean readingRoom) throws SQLException {
         Map<Integer, ReaderBook> readerBookHashMap = new HashMap<Integer, ReaderBook>();
         while (resultSet.next()) {

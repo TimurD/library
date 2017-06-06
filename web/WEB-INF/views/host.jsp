@@ -10,7 +10,7 @@
 <html>
 <c:import url="head.jsp"/>
 <div class="container">
-
+<c:import url="header.jsp"/>
 
     <form name="searchForm" method="POST" action="/Controller">
 

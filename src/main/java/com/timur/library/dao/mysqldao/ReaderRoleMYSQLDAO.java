@@ -2,6 +2,7 @@ package com.timur.library.dao.mysqldao;
 
 import com.timur.library.dao.factory.Connector;
 import com.timur.library.dao.interfaces.ReaderRoleDAO;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
  * Created by timur on 06.06.2017.
  */
 public class ReaderRoleMYSQLDAO implements ReaderRoleDAO {
+
+    Logger LOGGER=Logger.getLogger(ReaderRoleMYSQLDAO.class);
 
     private static volatile ReaderRoleMYSQLDAO readerRoleMYSQLDAO;
 
@@ -50,7 +53,7 @@ public class ReaderRoleMYSQLDAO implements ReaderRoleDAO {
             preparedStatement.setInt(1,userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(),e);
         }
     }
 

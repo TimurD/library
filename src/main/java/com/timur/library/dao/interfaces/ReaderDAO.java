@@ -1,6 +1,6 @@
 package com.timur.library.dao.interfaces;
 
-import com.timur.library.model.Reader;
+import com.timur.library.models.Reader;
 
 import java.util.List;
 

@@ -14,6 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author MAXIM
  */
 public interface ICommand {
-
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    String LOCALE="locale";
 }
