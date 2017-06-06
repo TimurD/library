@@ -12,7 +12,6 @@
 <c:import url="head.jsp"/>
 <c:import url="header.jsp"/>
 
-${reader.name}
 <div class="col-md-12">
     <table class="table table-bordered">
         <thead>

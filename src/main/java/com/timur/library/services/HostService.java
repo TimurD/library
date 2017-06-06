@@ -41,7 +41,11 @@ public class HostService {
     }
 
     public void unmakeAdmin(Integer userId){
+        mySQLDAO.getReaderBookDAO().deleteForReader(userId);
         mySQLDAO.getReaderRoleDAO().unmakeAdmin(userId);
     }
 
+    public boolean userNeedBook(Integer userId) {
+        return mySQLDAO.getReaderBookDAO().readerNeedBook(userId);
+    }
 }

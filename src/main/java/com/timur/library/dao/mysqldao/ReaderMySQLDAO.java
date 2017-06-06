@@ -73,8 +73,9 @@ public class ReaderMySQLDAO implements ReaderDAO {
     @Override
     public List<Reader> findByName(String name) {
         return findByDynamicSelect(SELECT_READER_BY_NAME, new Object[]{name + "%"});
-
     }
+
+
 
     @Override
     public List<Reader> findByEmail(String email) {

@@ -29,7 +29,9 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
     private final String GET_BOOK_TO_READER = "UPDATE readers_books SET lend_date=?,return_date=?,active=b'1' WHERE id=?";
     private final String SELECT_BOOKS_FOR_READING_ROOM = "SELECT  rb.id,a.id,a.name,b.id,b.name FROM readers_books rb JOIN books b ON rb.book_id=b.id JOIN books_authors ba on ba.book_id=b.id JOIN authors a ON ba.author_id=a.id WHERE rb.reader_id IN (SELECT reader_id FROM readers_roles WHERE role_id=2)";
     private final String SELECT_COUNT_BOOK_LENDERS = "SELECT COUNT(id) AS count FROM readers_books WHERE book_id=? AND active=b'1'";
+    private final String SELECT_COUNT_LENDED_BOOKS = "SELECT COUNT(id) AS count FROM readers_books WHERE reader_id=? AND active=b'0'";
     private final String DELETE_READERS_FOR_BOOK = "DELETE FROM readers_books WHERE book_id=?";
+    private static final String DELETE_BOOKS_FOR_READER = "DELETE FROM readers_books WHERE reader_id=?";
     private final String READERS_BOOKS_ID="rb.id";
     private final String AUTHOR_ID="a.id";
     private final String AUTHOR_NAME="a.name";
@@ -118,10 +120,21 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
      */
     @Override
     public Boolean isBookOrdered(Integer bookId) {
+       return isNeeded(bookId,SELECT_COUNT_BOOK_LENDERS);
+    }
+
+
+    @Override
+    public Boolean readerNeedBook(Integer readerId){
+        return isNeeded(readerId,SELECT_COUNT_LENDED_BOOKS);
+    }
+
+
+    private Boolean isNeeded(Integer id,String query){
         Boolean ordered = false;
         try (Connection connection = Connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_COUNT_BOOK_LENDERS)) {
-            preparedStatement.setInt(1, bookId);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     ordered = resultSet.getInt("count") > 0;
@@ -239,10 +252,20 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
      * @param bookId
      */
     @Override
-    public void delete(Integer bookId) {
+    public void deleteForBook(Integer bookId) {
+        delete(bookId,DELETE_READERS_FOR_BOOK);
+    }
+
+    @Override
+    public void deleteForReader(Integer readerId){
+        delete(readerId,DELETE_BOOKS_FOR_READER);
+    }
+
+
+    private void delete(Integer id,String query) {
         try (Connection connection=Connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_READERS_FOR_BOOK)) {
-            preparedStatement.setInt(1,bookId);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

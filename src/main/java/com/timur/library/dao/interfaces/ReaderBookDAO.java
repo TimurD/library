@@ -18,6 +18,7 @@ public interface ReaderBookDAO {
     List<ReaderBook> findReaderBooksForReader(Integer readerId);
     List<ReaderBook> findBooksForReadingRoom();
     List<ReaderBook> findBookOrders();
-
-    void delete(Integer bookId);
+    Boolean readerNeedBook(Integer readerId);
+    void deleteForBook(Integer bookId);
+    void deleteForReader(Integer readerId);
 }

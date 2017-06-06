@@ -19,7 +19,11 @@ public class CommandSetRole implements ICommand {
         Integer userId= Integer.valueOf(request.getParameter("userId"));
         Boolean admin= Boolean.valueOf(request.getParameter("admin"));
         if(admin){
-            hostService.unmakeAdmin(userId);
+            if(hostService.userNeedBook(userId)) {
+                hostService.unmakeAdmin(userId);
+            }else {
+                request.setAttribute("message","reader need return books");//TODO
+            }
         }else{
             hostService.makeAdmin(userId);
         }

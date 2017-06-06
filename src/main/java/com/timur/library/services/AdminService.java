@@ -71,7 +71,7 @@ public class AdminService {
     }
 
     public void deleteBook(Integer bookId){
-        mySQLDAO.getReaderBookDAO().delete(bookId);
+        mySQLDAO.getReaderBookDAO().deleteForBook(bookId);
         mySQLDAO.getAuthorsBookDAO().delete(bookId);
         mySQLDAO.getBookDAO().delete(bookId);
     }
