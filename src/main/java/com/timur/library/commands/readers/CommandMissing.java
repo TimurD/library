@@ -19,6 +19,8 @@ public class CommandMissing implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        return Config.getInstance().getProperty(Config.LOGIN);
+        if(request.getSession(false)==null||request.getSession().getAttribute("user")==null) {
+            return Config.getInstance().getProperty(Config.LOGIN);
+        }else return Config.getInstance().getProperty(Config.MAIN);
     }
 }

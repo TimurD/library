@@ -2,6 +2,7 @@ package com.timur.library.commands.host;
 
 import com.timur.library.commands.ICommand;
 import com.timur.library.managers.Config;
+import com.timur.library.models.Reader;
 import com.timur.library.services.AuthorizationService;
 import com.timur.library.services.HostService;
 
@@ -15,8 +16,13 @@ import java.io.IOException;
  */
 public class CommandSetRole implements ICommand {
     private HostService hostService=HostService.getInstance();
+    private AuthorizationService authorizationService=AuthorizationService.getInstance();
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Reader reader=(Reader)request.getSession().getAttribute("user");
+        if(!authorizationService.isHost(reader.getRoles())){
+            return Config.getInstance().getProperty(Config.MAIN);
+        }
         Integer userId= Integer.valueOf(request.getParameter("userId"));
         Boolean admin= Boolean.valueOf(request.getParameter("admin"));
         if(admin){

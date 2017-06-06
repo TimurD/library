@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.List;
 
 /**
  * Created by timur on 02.06.2017.
  */
 public class SessionFilter implements Filter {
 
+    private List<String> allowedCommands =new ArrayList<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        allowedCommands.add("login");
+        allowedCommands.add("registration");
+        allowedCommands.add("registrationPage");
     }
 
     @Override
@@ -26,7 +29,7 @@ public class SessionFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         boolean allowedRequest = false;
         String command=request.getParameter("command");
-        if(command!=null&&(command.equals("login")||command.equals("registration")||command.equals("registrationPage"))) {
+        if(command!=null&&allowedCommands.contains(command)) {
             allowedRequest = true;
         }
         if (!allowedRequest&&(request.getSession(false)==null||request.getSession().getAttribute("user")==null)) {

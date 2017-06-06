@@ -14,6 +14,17 @@ import javax.servlet.http.HttpServletResponse;
  * @author MAXIM
  */
 public interface ICommand {
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
     String LOCALE="locale";
+
+    /**
+     * This method returns relative address of jsp file, which will be forwarded by servlet.
+     * Also additional services inside method may be called when needed.
+     * @param request takes http request from servlet.
+     * @param response takes http response from servlet.
+     * @return address of .jsp file
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
 }
