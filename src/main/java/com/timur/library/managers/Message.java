@@ -33,6 +33,9 @@ public class Message {
     public static final String BOOK_ORDERED ="message.bookOrdered";
     public static final String BOOK_DELETED ="message.bookDeleted";
     public static final String CANT_DELETE_BOOK ="message.cannotDeleteBook";
+    public static final String USER_NEED_RETURN_BOOKS = "message.userNeedReturnBooks";
+    public static final String DAYS_OVERDUE ="tag.daysOverdue" ;
+    public static final String DAYS_LEFT="tag.daysLeft";
 
 
     public static ResourceBundle getInstance(String locale) {

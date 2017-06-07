@@ -32,7 +32,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
     private final String SELECT_READER_BY_ID = SELECT_READERS + "AND r.id=? ";
     private final String SELECT_READER_BY_NAME = SELECT_READERS + "AND name LIKE ? " + GROUP_BY;
     private final String SELECT_READER_BY_EMAIL = SELECT_READERS + "AND email LIKE ? " + GROUP_BY;
-    private final String SELECT_READER_BY_LOGIN_INFORMATION = "SELECT r.id,r.name,r.email FROM readers r WHERE r.email=? and r.password=? ";//TODO: count of books don't need and login for anmins
+    private final String SELECT_READER_BY_LOGIN_INFORMATION = "SELECT r.id,r.name,r.email FROM readers r WHERE r.email=? and r.password=? ";
     private final String INSERT_READER = "INSERT INTO readers (name,password,email) VALUES (?,?,?)";
     private final String SELECT_READERS_FOR_HOST = "SELECT id,name,email,true as admin from readers where id in (select reader_id from readers_roles where role_id=2) union SELECT id,name,email,false as admin from readers where id not in (select reader_id from readers_roles where role_id=2)";
 

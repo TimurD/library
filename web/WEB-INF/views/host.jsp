@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: timur
@@ -9,8 +10,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <c:import url="head.jsp"/>
+
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
+
 <div class="container">
-<c:import url="header.jsp"/>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/Controller?command=logout">
+                <fmt:message key="header.logout" bundle="${lang}"/>
+            </a>
+        </li>
+    </ul>
 
     <form name="searchForm" method="POST" action="/Controller">
 
@@ -36,9 +47,9 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Debt</th>
+                <th><fmt:message key="login.email" bundle="${lang}"/></th>
+                <th><fmt:message key="registration.name" bundle="${lang}"/></th>
+                <th><fmt:message key="host.setRole" bundle="${lang}"/></th>
 
             </tr>
             </thead>

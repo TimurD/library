@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ct" uri="/WEB-INF/tld/customtags.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: timur
@@ -13,6 +14,9 @@
 <c:import url="head.jsp"/>
 <c:import url="header.jsp"/>
 ${reader.name}
+
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
 <div class="col-md-12">
     <table class="table table-bordered">
         <thead>

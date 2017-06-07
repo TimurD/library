@@ -2,6 +2,7 @@ package com.timur.library.commands.host;
 
 import com.timur.library.commands.ICommand;
 import com.timur.library.managers.Config;
+import com.timur.library.managers.Message;
 import com.timur.library.models.Reader;
 import com.timur.library.services.AuthorizationService;
 import com.timur.library.services.HostService;
@@ -25,11 +26,12 @@ public class CommandSetRole implements ICommand {
         }
         Integer userId= Integer.valueOf(request.getParameter("userId"));
         Boolean admin= Boolean.valueOf(request.getParameter("admin"));
+        String locale= (String) request.getSession().getAttribute(LOCALE);
         if(admin){
             if(hostService.userNeedBook(userId)) {
                 hostService.unmakeAdmin(userId);
             }else {
-                request.setAttribute("message","reader need return books");//TODO
+                request.setAttribute("message", Message.getInstance(locale).getString(Message.USER_NEED_RETURN_BOOKS));
             }
         }else{
             hostService.makeAdmin(userId);

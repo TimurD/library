@@ -9,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<c:import url="WEB-INF/views/head.jsp"/>
+<c:import url="../WEB-INF/views/head.jsp"/>
 
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locales.locale" var="lang"/>
@@ -18,16 +18,16 @@
 <form  class="form-signin" name="loginForm" method="POST" action="Controller">
   <input type="hidden" name="command" value ="login"/>
   <fmt:message key="login.email" bundle="${lang}"/> :<br/>
-  <input class="form-control" required="required" placeholder="Email" type="text" name="login" value ="${email}"> <br/>
+  <input class="form-control" required="required" placeholder="<fmt:message key="login.email" bundle="${lang}"/>" type="text" name="login" value ="${email}"> <br/>
     <fmt:message key="login.password" bundle="${lang}"/>:<br/>
-  <input class="form-control" required="required" placeholder="Password" type="password" name ="password" value="">
+  <input class="form-control" required="required" placeholder="<fmt:message key="login.password" bundle="${lang}"/>" type="password" name ="password" value="">
   <br/>
-  <a href="/Controller?command=registrationPage">Registration</a>
+  <a href="/Controller?command=registrationPage"><fmt:message key="login.registration" bundle="${lang}"/></a>
   <br/>
-  <button class="btn btn-lg btn-primary btn-block" type ="submit" value="Enter">Login</button>
+  <button class="btn btn-lg btn-primary btn-block" type ="submit" value="Enter"><fmt:message key="login.login" bundle="${lang}"/></button>
 </form>
 
-  ${error}
+  <p style="color:red">${error}</p>
 
 </div>
 </body>

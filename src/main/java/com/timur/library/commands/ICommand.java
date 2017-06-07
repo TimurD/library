@@ -17,8 +17,8 @@ public interface ICommand {
     String LOCALE="locale";
 
     /**
-     * This method returns relative address of jsp file, which will be forwarded by servlet.
-     * Also additional services inside method may be called when needed.
+     * this method returns relative address of jsp file, which will be forwarded by servlet.
+     * also additional services inside method may be called when needed.
      * @param request takes http request from servlet.
      * @param response takes http response from servlet.
      * @return address of .jsp file

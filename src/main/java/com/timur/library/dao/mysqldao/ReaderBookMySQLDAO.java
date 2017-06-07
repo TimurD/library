@@ -67,46 +67,39 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             i = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return i!=0;
     }
 
     @Override
-    public void getBookToReader(Integer id, Integer days) {
+    public void getBookToReader(Integer readerId, Integer days) {
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_BOOK_TO_READER)) {
             Timestamp lendDate = new Timestamp(System.currentTimeMillis());
             preparedStatement.setTimestamp(1, lendDate);
             Timestamp returnDate = new Timestamp(System.currentTimeMillis() + (days * daysInMillis));
             preparedStatement.setTimestamp(2, returnDate);
-            preparedStatement.setInt(3, id);
+            preparedStatement.setInt(3, readerId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
-    /**
-     *
-     * @param id
-     */
+
     @Override
-    public void readerReturnBook(Integer id) {
+    public void readerReturnBook(Integer readerBookId) {
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(READER_RETURN_BOOK)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, readerBookId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
     }
 
-    /**
-     *
-     * @param bookId
-     * @return isBookOrdered
-     */
+
     @Override
     public Boolean isBookOrdered(Integer bookId) {
        return isNeeded(bookId,SELECT_COUNT_BOOK_LENDERS);
@@ -114,7 +107,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
 
 
     @Override
-    public Boolean readerNeedBook(Integer readerId){
+    public Boolean isReaderHasDebt(Integer readerId){
         return isNeeded(readerId,SELECT_COUNT_LENDED_BOOKS);
     }
 
@@ -130,7 +123,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return ordered;
     }
@@ -157,7 +150,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(),e);
         }
         return readers;
     }

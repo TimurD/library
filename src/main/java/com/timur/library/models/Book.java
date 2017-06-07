@@ -12,7 +12,7 @@ public class Book {
     private Genre genre;
     private Integer id;
     private Integer amount;
-    private List<Author> authors=new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
 
     public Book() {
 
@@ -65,7 +65,28 @@ public class Book {
         this.authors = authors;
     }
 
-    public void addAuthor(Author author){
+    public void addAuthor(Author author) {
         authors.add(author);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        if (name != null ? !name.equals(book.name) : book.name != null) return false;
+        if (genre != null ? !genre.equals(book.genre) : book.genre != null) return false;
+        return authors != null ? authors.equals(book.authors) : book.authors == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (genre != null ? genre.hashCode() : 0);
+        result = 31 * result + (authors != null ? authors.hashCode() : 0);
+        return result;
     }
 }

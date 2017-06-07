@@ -14,16 +14,19 @@
 <c:import url="head.jsp"/>
 <c:import url="header.jsp"/>
 
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
+
 ${book.name}
 <div class="col-md-12">
     <table class="table table-bordered">
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Lend Date</th>
-            <th>Return Date</th>
+            <th><fmt:message key="registration.name" bundle="${lang}"/></th>
+            <th><fmt:message key="login.email" bundle="${lang}"/></th>
+            <th><fmt:message key="llendDate" bundle="${lang}"/></th>
+            <th><fmt:message key="returnDate" bundle="${lang}"/></th>
             <th></th>
             <th></th>
 
@@ -46,7 +49,7 @@ ${book.name}
                     <input type="hidden" name="command" value ="returnBook"/>
                     <input type="hidden" name="id" value ="${rb.id}"/>
                     <input type="hidden" name="page" value="bookLenders">
-                    <button type="submit" class="btn btn-success">Return</button></form>
+                    <button type="submit" class="btn btn-success"><fmt:message key="return" bundle="${lang}"/></button></form>
                 </td>
                 <td>
                     <ct:days-left returnDate="${rb.returnDate}"/>

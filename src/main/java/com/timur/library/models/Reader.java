@@ -83,8 +83,18 @@ public class Reader {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Reader reader = (Reader) o;
 
+        return email != null ? email.equals(reader.email) : reader.email == null;
+    }
 
-
+    @Override
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
+    }
 }

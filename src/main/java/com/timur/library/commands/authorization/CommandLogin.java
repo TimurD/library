@@ -39,11 +39,11 @@ public class CommandLogin implements ICommand {
         reader= authorizationService.login(login,password);
         if (reader!=null) {
             request.getSession().setAttribute("user",reader);
+            reader.setAdmin(authorizationService.isAdmin(reader.getRoles()));
             if(authorizationService.isHost(reader.getRoles())){
                 request.setAttribute("users",hostService.getUsersForHost());
                 return Config.getInstance().getProperty(Config.HOST);
             }
-            reader.setAdmin(authorizationService.isAdmin(reader.getRoles()));
             request.getSession().setAttribute("books", searchService.findAllBooks());
             request.getServletContext().setAttribute("genres", searchService.findAllGenres());
             return Config.getInstance().getProperty(Config.MAIN);

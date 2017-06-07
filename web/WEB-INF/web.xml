@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <welcome-file-list>
+        <welcome-file>/jsp/login.jsp</welcome-file>
+    </welcome-file-list>
+
     <servlet>
         <display-name>
             Controller
@@ -23,9 +27,10 @@
         </session-timeout>
     </session-config>
 
-   <!-- <error-page>
+    <error-page>
         <location>/WEB-INF/views/errorPage.jsp</location>
-    </error-page>-->
+    </error-page>
+
     <filter>
         <filter-name>SessionFilter</filter-name>
         <filter-class>com.timur.library.filters.SessionFilter</filter-class>

@@ -46,6 +46,6 @@ public class HostService {
     }
 
     public boolean userNeedBook(Integer userId) {
-        return mySQLDAO.getReaderBookDAO().readerNeedBook(userId);
+        return mySQLDAO.getReaderBookDAO().isReaderHasDebt(userId);
     }
 }

@@ -54,15 +54,15 @@ public interface BookDAO {
 
     /**
      *
-     * @param id
+     * @param bookId
      * @param amount
      */
-    void setBookAmount(Integer id, Integer amount);
+    void setBookAmount(Integer bookId, Integer amount);
 
     /**
      *
      * @param authorName
-     * @return find all books where author name start with param
+     * @return all books where author name start with param
      */
     List<Book> findAllBooksOfAuthor(String  authorName);
 

@@ -2,7 +2,6 @@ package com.timur.library.commands.admin;
 
 import com.timur.library.commands.ICommand;
 import com.timur.library.managers.Config;
-import com.timur.library.managers.LocaleMessage;
 import com.timur.library.managers.Message;
 import com.timur.library.services.AdminService;
 import com.timur.library.services.SearchService;
@@ -11,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * Created by timur on 04.06.2017.
