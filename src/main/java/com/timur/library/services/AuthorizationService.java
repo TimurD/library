@@ -102,7 +102,7 @@ public class AuthorizationService {
         try {
             md = MessageDigest.getInstance(HASH_CHANGER);
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         md.reset();
         md.update(password.getBytes());

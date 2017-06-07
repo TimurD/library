@@ -17,16 +17,17 @@ public class CommandBookSearch implements ICommand {
 
     private static final String SEARCH_TEXT = "search";
     private static final String SEARCH_CRITERIA = "selected";
+    private static final String SEARCH_BY_BOOK_NAME = "bookName";
 
     private SearchService searchService =  SearchService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse responce) throws ServletException, IOException {
-        String page = null;
         String criteria = request.getParameter(SEARCH_CRITERIA);
         if(criteria!=null) {
             String text = request.getParameter(SEARCH_TEXT);
-            if (criteria.equals("bookName"))
+            request.setAttribute("searchText",text);
+            if (criteria.equals(SEARCH_BY_BOOK_NAME))
                 request.getSession().setAttribute("books", searchService.findBooksByName(text));
             else
                 request.getSession().setAttribute("books", searchService.findAllBookOfAuthor(text));
@@ -34,8 +35,7 @@ public class CommandBookSearch implements ICommand {
             int genreId= Integer.parseInt(request.getParameter("id"));
             request.getSession().setAttribute("books", searchService.findBooksByGenre(genreId));
         }
-            page = Config.getInstance().getProperty(Config.MAIN);
 
-        return page;
+        return Config.getInstance().getProperty(Config.MAIN);
     }
 }

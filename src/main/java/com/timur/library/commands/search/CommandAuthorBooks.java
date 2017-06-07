@@ -18,10 +18,12 @@ public class CommandAuthorBooks implements ICommand {
 
 
     private SearchService searchService =  SearchService.getInstance();
+    private static final String ID = "id";
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id= Integer.parseInt(request.getParameter("id"));
+        int id= Integer.parseInt(request.getParameter(ID));
         List<Book>books = searchService.allBooksOfAuthor(id);
         request.setAttribute("books",books);
         String page= Config.getInstance().getProperty(Config.MAIN);

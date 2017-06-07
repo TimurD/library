@@ -53,7 +53,7 @@ public class ReaderRoleMYSQLDAO implements ReaderRoleDAO {
             preparedStatement.setInt(1,userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
     }
 

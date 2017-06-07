@@ -22,8 +22,6 @@ public class GenreMySQLDAO implements GenreDAO {
 
     private static volatile GenreMySQLDAO genreMySQLDAO;
 
-    private final int COLUMN_GENRE_ID=1;
-    private final int COLUMN_GENRE_NAME=1;
     private final String SELECT_GENRE="SELECT * FROM genres ";
     private final String CREATE_GENRE="INSERT INTO genres (name) VALUES (?)";
     private final String SELECT_GENRE_BY_ID=SELECT_GENRE+"WHERE id=?";
@@ -54,7 +52,7 @@ public class GenreMySQLDAO implements GenreDAO {
         Genre genre=new Genre();
         try(Connection connection=Connector.getConnection();
             PreparedStatement preparedStatement= connection.prepareStatement(SELECT_GENRE_BY_ID)) {
-            preparedStatement.setInt(COLUMN_GENRE_ID,id);
+            preparedStatement.setInt(1,id);
             try( ResultSet resultSet=preparedStatement.executeQuery()) {
                 if(resultSet.next()) {
                     genre.setId(resultSet.getInt("id"));
@@ -62,7 +60,7 @@ public class GenreMySQLDAO implements GenreDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return genre;
     }
@@ -77,7 +75,7 @@ public class GenreMySQLDAO implements GenreDAO {
                 genres.add(new Genre(resultSet.getInt("id"),resultSet.getString("name")));
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return genres;
     }
@@ -90,7 +88,7 @@ public class GenreMySQLDAO implements GenreDAO {
             preparedStatement.setString(1,genreName);
             i= preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return i;
     }

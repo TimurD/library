@@ -66,7 +66,7 @@ public class BookMySQLDAO implements BookDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -82,7 +82,7 @@ public class BookMySQLDAO implements BookDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -98,7 +98,7 @@ public class BookMySQLDAO implements BookDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return book;
     }
@@ -111,7 +111,7 @@ public class BookMySQLDAO implements BookDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
              books= fillUpBook(resultSet);
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -127,7 +127,7 @@ public class BookMySQLDAO implements BookDAO {
                 books=fillUpBook(resultSet);
             }
         }catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -142,7 +142,7 @@ public class BookMySQLDAO implements BookDAO {
                 books=fillUpBook(resultSet);
             }
         }catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -155,7 +155,7 @@ public class BookMySQLDAO implements BookDAO {
             preparedStatement.setInt(2,id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -173,7 +173,7 @@ public class BookMySQLDAO implements BookDAO {
                     id=resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return id;
     }
@@ -186,7 +186,7 @@ public class BookMySQLDAO implements BookDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
     }
 

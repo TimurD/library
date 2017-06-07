@@ -29,11 +29,11 @@ public class Controller extends HttpServlet {
             ICommand command = controllerHelper.getCommand(request);
             page = command.execute(request, response);
         } catch (ServletException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
             request.setAttribute("messageError", Message.getInstance(locale).getString(Message.SERVLET_EXECPTION));
 
         } catch (IOException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
             request.setAttribute("messageError", Message.getInstance(locale).getString(Message.IO_EXCEPTION));
 
         }

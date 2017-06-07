@@ -36,7 +36,7 @@
 
                 <input type="hidden" name="command" value="searchBooks"/>
 
-                <input type="text" name="search" class="form-control">
+                <input type="text" name="search" value="${searchText}" class="form-control">
 
                 <div class="input-group-btn">
                     <select name="selected" class="form-control" style="width: 155px;">
@@ -61,7 +61,7 @@
 
     <br/>
     <br/>
-    ${message}
+    <p style="color: blue">${message}</p>
     <c:remove var="message" scope="session"/>
     <br/>
     <br/>

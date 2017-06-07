@@ -1,5 +1,7 @@
 package com.timur.library.models;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.List;
 
 /**
@@ -13,29 +15,24 @@ public class Reader {
     private List<Role> roles;
     private Integer debt;
     private Boolean admin;
+    private Boolean host;
 
-    public Boolean getAdmin() {
-        return admin;
+    public Reader() {
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
-
-    public Integer getDebt() {
-        return debt;
-    }
-
-    public void setDebt(Integer debt) {
-        this.debt = debt;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
+    public Reader(String name, String password, String email, Integer id, List<Role> roles, Integer debt, Boolean admin, Boolean host) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.id = id;
         this.roles = roles;
+        this.debt = debt;
+        this.admin = admin;
+        this.host = host;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
@@ -66,21 +63,36 @@ public class Reader {
         this.id = id;
     }
 
-    public Reader() {
-
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public Reader(String name, String password, String email) {
-
-        this.name = name;
-        this.password = password;
-        this.email = email;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
+    public Integer getDebt() {
+        return debt;
+    }
 
-    public String getName() {
+    public void setDebt(Integer debt) {
+        this.debt = debt;
+    }
 
-        return name;
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public Boolean getHost() {
+        return host;
+    }
+
+    public void setHost(Boolean host) {
+        this.host = host;
     }
 
     @Override

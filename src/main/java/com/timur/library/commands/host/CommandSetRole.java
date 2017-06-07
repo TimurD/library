@@ -21,20 +21,21 @@ public class CommandSetRole implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Reader reader=(Reader)request.getSession().getAttribute("user");
-        if(!authorizationService.isHost(reader.getRoles())){
+
+        if(!reader.getHost()){
             return Config.getInstance().getProperty(Config.MAIN);
         }
         Integer userId= Integer.valueOf(request.getParameter("userId"));
         Boolean admin= Boolean.valueOf(request.getParameter("admin"));
         String locale= (String) request.getSession().getAttribute(LOCALE);
-        if(admin){
-            if(hostService.userNeedBook(userId)) {
-                hostService.unmakeAdmin(userId);
+        if(!admin){
+            if(!hostService.isReaderHasDebt(userId)) {
+                hostService.makeAdmin(userId);
             }else {
                 request.setAttribute("message", Message.getInstance(locale).getString(Message.USER_NEED_RETURN_BOOKS));
             }
         }else{
-            hostService.makeAdmin(userId);
+            hostService.unmakeAdmin(userId);
         }
         request.setAttribute("users",hostService.getUsersForHost());
         return Config.getInstance().getProperty(Config.HOST);

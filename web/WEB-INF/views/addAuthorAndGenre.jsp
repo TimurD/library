@@ -26,11 +26,11 @@
                    name="name" required="required" pattern="[A-Za-z]{1,20}">
         </div>
         <button type="submit" class="btn btn-default"><fmt:message bundle="${lang}" key="submit"/></button>
-        <h3>${resultForGenre}</h3>
+        <p style="color:blue">${resultForGenre}</p>
     </form>
 
 
-    <form class="form-inline" name="addGenreForm" method="POST" action="/Controller">
+    <form class="form-inline" name="addAuthorForm" method="POST" action="/Controller">
         <input type="hidden" name="command" value="addAuthor"/>
 
         <div class="form-group">
@@ -39,7 +39,7 @@
                    placeholder="<fmt:message bundle="${lang}" key="addAG.authorName"/>" required="required" name="name">
         </div>
         <button type="submit" class="btn btn-default"><fmt:message bundle="${lang}" key="submit"/></button>
-        <h3>${resultForAuthor}</h3>
+        <p style="color:blue">${resultForAuthor}</p>
     </form>
 
 </div>
@@ -53,7 +53,7 @@
 
             <input type="hidden" name="command" value="searchBooks"/>
 
-            <input type="text" name="search" class="form-control" pattern="[A-Za-z]{1,20}">
+            <input type="text" name="search" class="form-control" value="${searchText}" pattern="[A-Za-z]{1,20}">
 
             <div class="input-group-btn">
 

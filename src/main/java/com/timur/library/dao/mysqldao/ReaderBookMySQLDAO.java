@@ -29,7 +29,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
     private final String GET_BOOK_TO_READER = "UPDATE readers_books SET lend_date=?,return_date=?,active=b'1' WHERE id=?";
     private final String SELECT_BOOKS_FOR_READING_ROOM = "SELECT  rb.id,a.id,a.name,b.id,b.name FROM readers_books rb JOIN books b ON rb.book_id=b.id JOIN books_authors ba on ba.book_id=b.id JOIN authors a ON ba.author_id=a.id WHERE rb.reader_id IN (SELECT reader_id FROM readers_roles WHERE role_id=2)";
     private final String SELECT_COUNT_BOOK_LENDERS = "SELECT COUNT(id) AS count FROM readers_books WHERE book_id=? AND active=b'1'";
-    private final String SELECT_COUNT_LENDED_BOOKS = "SELECT COUNT(id) AS count FROM readers_books WHERE reader_id=? AND active=b'0'";
+    private final String SELECT_COUNT_LENDED_BOOKS = "SELECT COUNT(id) AS count FROM readers_books WHERE reader_id=? AND active=b'1'";
     private final String DELETE_READERS_FOR_BOOK = "DELETE FROM readers_books WHERE book_id=?";
     private static final String DELETE_BOOKS_FOR_READER = "DELETE FROM readers_books WHERE reader_id=?";
     private final String READERS_BOOKS_ID="rb.id";
@@ -67,7 +67,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             i = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return i!=0;
     }
@@ -83,7 +83,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             preparedStatement.setInt(3, readerId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -95,7 +95,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             preparedStatement.setInt(1, readerBookId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -123,7 +123,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return ordered;
     }
@@ -150,7 +150,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return readers;
     }
@@ -177,7 +177,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 books = fillUpReaderBook(resultSet, false, false);
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -190,7 +190,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
             books = fillUpReaderBook(resultSet, false, true);
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -205,7 +205,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
              ResultSet resultSet = preparedStatement.executeQuery()) {
             books = fillUpReaderBook(resultSet, true, false);
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return books;
     }
@@ -229,7 +229,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
     }
 

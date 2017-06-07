@@ -96,7 +96,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
                 readers.add(reader);
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return readers;
     }
@@ -118,7 +118,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return reader;
     }
@@ -132,7 +132,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
             preparedStatement.setString(3, reader.getEmail());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
 
     }
@@ -150,7 +150,7 @@ public class ReaderMySQLDAO implements ReaderDAO {
 
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return new ArrayList<>();
     }

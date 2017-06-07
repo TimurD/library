@@ -33,7 +33,7 @@ public class DaysLeftTag extends TagSupport {
         try {
             pageContext.getOut().write(content);
         } catch (IOException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
 
         return SKIP_BODY;

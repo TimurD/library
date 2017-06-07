@@ -14,6 +14,8 @@
 <c:import url="head.jsp"/>
 <c:import url="header.jsp"/>
 
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
 
 <h3>${reader.name}</h3>
 <div class="col-md-12">
@@ -21,10 +23,10 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Authors</th>
-            <th>Lend Date</th>
-            <th>Return Date</th>
+            <th><fmt:message bundle="${lang}" key="registration.name"/></th>
+            <th><fmt:message bundle="${lang}" key="main.authors"/></th>
+            <th><fmt:message bundle="${lang}" key="llendDate"/></th>
+            <th><fmt:message bundle="${lang}" key="returnDate"/></th>
             <c:if test="${user.admin}">
                 <th></th>
             </c:if>
@@ -54,7 +56,7 @@
                             <input type="hidden" name="id" value="${rb.id}"/>
                             <input type="hidden" name="page" value="readerInfo">
 
-                            <button type="submit" class="btn btn-success">Return</button>
+                            <button type="submit" class="btn btn-success"><fmt:message bundle="${lang}" key="return"/></button>
                         </form>
                     </td>
                 </c:if>

@@ -32,7 +32,7 @@ public class PrintAuthorsTag extends TagSupport {
         try {
             pageContext.getOut().print(content);
         } catch (IOException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return SKIP_BODY;
     }

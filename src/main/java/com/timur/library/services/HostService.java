@@ -45,7 +45,7 @@ public class HostService {
         mySQLDAO.getReaderRoleDAO().unmakeAdmin(userId);
     }
 
-    public boolean userNeedBook(Integer userId) {
+    public boolean isReaderHasDebt(Integer userId) {
         return mySQLDAO.getReaderBookDAO().isReaderHasDebt(userId);
     }
 }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: timur
@@ -11,6 +12,9 @@
 <c:import url="head.jsp"/>
 <c:import url="header.jsp"/>
 
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
+
 <div class="container">
 
 
@@ -22,15 +26,15 @@
 
                 <input type="hidden" name="command" value="searchReaders"/>
 
-                <input type="text" name="search" class="form-control">
+                <input type="text" name="search" class="form-control" value="${searchText}">
 
                 <div class="input-group-btn">
                     <select name="selected" class="form-control" style="width: 145px;">
-                        <option>Reader name</option>
-                        <option>Reader email</option>
+                        <option><fmt:message bundle="${lang}" key="readers.readerName"/></option>
+                        <option><fmt:message bundle="${lang}" key="orders.readerEmail"/></option>
                     </select>
 
-                    <button id="sendButton" class="btn btn-default" type="submit"  style="width:95px;">Search</button>
+                    <button id="sendButton" class="btn btn-default" type="submit"  style="width:95px;"><fmt:message bundle="${lang}" key="main.search"/></button>
                 </div>
             </div>
         </div>
@@ -43,9 +47,9 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Debt</th>
+                <th><fmt:message bundle="${lang}" key="login.email"/></th>
+                <th><fmt:message bundle="${lang}" key="registration.name"/></th>
+                <th><fmt:message bundle="${lang}" key="debt"/></th>
 
             </tr>
             </thead>

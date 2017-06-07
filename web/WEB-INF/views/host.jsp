@@ -23,24 +23,7 @@
         </li>
     </ul>
 
-    <form name="searchForm" method="POST" action="/Controller">
-
-
-        <div class="col-lg-11">
-            <div class="input-group">
-
-                <input type="hidden" name="command" value="searchReaders"/>
-
-                <input type="text" name="search" class="form-control">
-
-                <div class="input-group-btn">
-                    <button id="sendButton" class="btn btn-default" type="submit" style="width:95px;"/>
-                </div>
-            </div>
-        </div>
-
-
-    </form>
+    <p style="color:red">${message}</p>
 
     <div class="col-md-12">
         <table class="table table-bordered">

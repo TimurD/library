@@ -61,7 +61,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
             }
 
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage());
         }
         return authors;
     }
@@ -80,7 +80,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
             }
 
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
 
         return author;
@@ -97,7 +97,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
                 authors.add(new Author(resultSet.getInt("id"), resultSet.getString("name")));
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage());
         }
 
         return authors;
@@ -111,7 +111,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
             preparedStatement.setString(1, authorName);
             i = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage());
         }
         return i;
     }
@@ -128,7 +128,7 @@ public class AuthorMySQLDAO implements AuthorDAO {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage());
         }
         return authors;
     }

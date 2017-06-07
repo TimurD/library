@@ -47,14 +47,14 @@ public class Connector {
                 pool  = (DataSource)ctx.lookup("java:comp/env/jdbc/library");
 
             } catch (NamingException e) {
-                LOGGER.error(e.getMessage(),e);
+                LOGGER.error(e.getMessage());
             }
         }
 
         try {
             return pool.getConnection();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
             return null;
         }
     }

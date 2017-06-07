@@ -57,7 +57,7 @@ public class RoleMySQLDAO implements RoleDAO{
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage());
         }
         return roles;
     }
