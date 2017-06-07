@@ -27,7 +27,7 @@ public class CommandDeleteBook implements ICommand {
             request.setAttribute("message",Message.getInstance(locale).getString(Message.CANT_DELETE_BOOK));
         }else {
             adminService.deleteBook(bookId);
-            request.getSession().setAttribute("books", searchService.findAllBooks());
+            request.getSession().setAttribute("books", searchService.getAllBooks());
             request.setAttribute("message", Message.getInstance(locale).getString(Message.BOOK_DELETED));
         }
         return Config.getInstance().getProperty(Config.MAIN);

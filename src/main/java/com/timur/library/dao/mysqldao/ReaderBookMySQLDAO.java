@@ -32,9 +32,6 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
     private final String SELECT_COUNT_LENDED_BOOKS = "SELECT COUNT(id) AS count FROM readers_books WHERE reader_id=? AND active=b'1'";
     private final String DELETE_READERS_FOR_BOOK = "DELETE FROM readers_books WHERE book_id=?";
     private static final String DELETE_BOOKS_FOR_READER = "DELETE FROM readers_books WHERE reader_id=?";
-    private final String READERS_BOOKS_ID="rb.id";
-    private final String AUTHOR_ID="a.id";
-    private final String AUTHOR_NAME="a.name";
     private final Long daysInMillis = 1000L * 60L * 60L * 24L;
 
 
@@ -144,7 +141,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                     reader.setEmail(resultSet.getString("r.email"));
                     readerBook.setLendDate(resultSet.getTimestamp("rb.lend_date"));
                     readerBook.setReturnDate(resultSet.getTimestamp("rb.return_date"));
-                    readerBook.setId(resultSet.getInt(READERS_BOOKS_ID));
+                    readerBook.setId(resultSet.getInt("rb.id"));
                     readerBook.setReader(reader);
                     readers.add(readerBook);
                 }
@@ -236,11 +233,11 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
     private List<ReaderBook> fillUpReaderBook(ResultSet resultSet, Boolean includeReaders, Boolean readingRoom) throws SQLException {
         Map<Integer, ReaderBook> readerBookHashMap = new HashMap<Integer, ReaderBook>();
         while (resultSet.next()) {
-            int id = resultSet.getInt(READERS_BOOKS_ID);
+            int id = resultSet.getInt("rb.id");
             if (readerBookHashMap.containsKey(id)) {
                 Author author = new Author();
-                author.setId(resultSet.getInt(AUTHOR_ID));
-                author.setName(resultSet.getString(AUTHOR_NAME));
+                author.setId(resultSet.getInt("a.id"));
+                author.setName(resultSet.getString("a.name"));
                 readerBookHashMap.get(id).getBook().addAuthor(author);
             } else {
                 ReaderBook readerBook = new ReaderBook();
@@ -252,7 +249,7 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
                 Book book = new Book();
                 book.setId(resultSet.getInt("b.id"));
                 book.setName(resultSet.getString("b.name"));
-                book.addAuthor(new Author(resultSet.getInt(AUTHOR_ID), resultSet.getString(AUTHOR_NAME)));
+                book.addAuthor(new Author(resultSet.getInt("a.id"), resultSet.getString("a.name")));
                 if (includeReaders) {
                     Reader reader = new Reader();
                     reader.setId(resultSet.getInt("r.id"));

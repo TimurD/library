@@ -20,7 +20,7 @@
 
 <div class="container">
 
-    <form name="registrationForm" method="POST" action="Controller">
+    <form name="addBookForm" method="POST" action="Controller">
         <input type="hidden" name="command" value="addBook"/>
         <input type="hidden" name="newBook" value="yes"/>
         <div class="form-group">

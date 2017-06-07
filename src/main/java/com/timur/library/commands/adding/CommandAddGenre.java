@@ -29,7 +29,7 @@ public class CommandAddGenre implements ICommand {
         } else {
             request.setAttribute("resultForGenre", Message.getInstance(locale).getString(Message.GENRE_ADDED));
         }
-        request.getServletContext().setAttribute("genres", searchService.findAllGenres());
+        request.getServletContext().setAttribute("genres", searchService.getAllGenres());
         return Config.getInstance().getProperty(Config.ADD_AUTHOR);
     }
 }

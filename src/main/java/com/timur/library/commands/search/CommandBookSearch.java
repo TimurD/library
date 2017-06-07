@@ -28,12 +28,12 @@ public class CommandBookSearch implements ICommand {
             String text = request.getParameter(SEARCH_TEXT);
             request.setAttribute("searchText",text);
             if (criteria.equals(SEARCH_BY_BOOK_NAME))
-                request.getSession().setAttribute("books", searchService.findBooksByName(text));
+                request.getSession().setAttribute("books", searchService.getBooksByName(text));
             else
-                request.getSession().setAttribute("books", searchService.findAllBookOfAuthor(text));
+                request.getSession().setAttribute("books", searchService.getAllBookOfAuthor(text));
         }else {
             int genreId= Integer.parseInt(request.getParameter("id"));
-            request.getSession().setAttribute("books", searchService.findBooksByGenre(genreId));
+            request.getSession().setAttribute("books", searchService.getBooksByGenre(genreId));
         }
 
         return Config.getInstance().getProperty(Config.MAIN);

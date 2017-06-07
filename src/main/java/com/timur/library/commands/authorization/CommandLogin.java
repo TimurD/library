@@ -43,8 +43,8 @@ public class CommandLogin implements ICommand {
                 request.setAttribute("users",hostService.getUsersForHost());
                 return Config.getInstance().getProperty(Config.HOST);
             }
-            request.getSession().setAttribute("books", searchService.findAllBooks());
-            request.getServletContext().setAttribute("genres", searchService.findAllGenres());
+            request.getSession().setAttribute("books", searchService.getAllBooks());
+            request.getServletContext().setAttribute("genres", searchService.getAllGenres());
             return Config.getInstance().getProperty(Config.MAIN);
         }
             request.setAttribute("error", Message.getInstance(locale).getString(Message.LOGIN_ERROR));

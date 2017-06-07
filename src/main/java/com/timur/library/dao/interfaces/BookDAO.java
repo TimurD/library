@@ -50,7 +50,7 @@ public interface BookDAO {
      * @param authorId
      * @return all books of author
      */
-    List<Book> findAllBooksOfAuthor(Integer authorId);
+    List<Book> findAllBooksOfAuthorById(Integer authorId);
 
     /**
      *
@@ -64,7 +64,7 @@ public interface BookDAO {
      * @param authorName
      * @return all books where author name start with param
      */
-    List<Book> findAllBooksOfAuthor(String  authorName);
+    List<Book> findAllBooksOfAuthorByName(String  authorName);
 
     /**
      * delete book

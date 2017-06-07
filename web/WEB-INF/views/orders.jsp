@@ -22,11 +22,11 @@ ${reader.name}
         <thead>
         <tr>
             <th>#</th>
-            <th> <fmt:message bundle="${lang}" key="orders.readerEmail"/></th>
-            <th> <fmt:message bundle="${lang}" key="main.bookName"/></th>
-            <th> <fmt:message bundle="${lang}" key="main.authors"/></th>
-            <th> <fmt:message bundle="${lang}" key="orders.getBook"/></th>
-            <th> <fmt:message bundle="${lang}" key="orders.decline"/></th>
+            <th><fmt:message bundle="${lang}" key="orders.readerEmail"/></th>
+            <th><fmt:message bundle="${lang}" key="main.bookName"/></th>
+            <th><fmt:message bundle="${lang}" key="main.authors"/></th>
+            <th><fmt:message bundle="${lang}" key="orders.getBook"/></th>
+            <th><fmt:message bundle="${lang}" key="orders.decline"/></th>
 
 
         </tr>
@@ -50,7 +50,8 @@ ${reader.name}
                             <input class="form-control" type="number" name="days" required="required" placeholder="days"
                                    onchange="handleChange(this);">
                         </div>
-                        <button type="submit" class="btn btn-success"> <fmt:message bundle="${lang}" key="orders.get"/></button>
+                        <button type="submit" class="btn btn-success"><fmt:message bundle="${lang}"
+                                                                                   key="orders.get"/></button>
                     </form>
                 </td>
                 <td>
@@ -58,7 +59,8 @@ ${reader.name}
                         <input type="hidden" name="command" value="returnBook"/>
                         <input type="hidden" name="id" value="${o.id}"/>
                         <input type="hidden" name="page" value="orders">
-                        <button type="submit" class="btn btn-danger"> <fmt:message bundle="${lang}" key="orders.decline"/></button>
+                        <button type="submit" class="btn btn-danger"><fmt:message bundle="${lang}"
+                                                                                  key="orders.decline"/></button>
                     </form>
                 </td>
 

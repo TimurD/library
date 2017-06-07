@@ -35,7 +35,7 @@ public class SearchService {
     /**
      * @return all books
      */
-    public List<Book> findAllBooks() {
+    public List<Book> getAllBooks() {
         return mySQLDAO.getBookDAO().findAll();
     }
 
@@ -44,7 +44,7 @@ public class SearchService {
      * @param name
      * @return books which names start with parameter
      */
-    public List<Book> findBooksByName(String name) {
+    public List<Book> getBooksByName(String name) {
         return mySQLDAO.getBookDAO().findByName(name);
     }
 
@@ -53,7 +53,7 @@ public class SearchService {
      * @param genreId
      * @return book by genre
      */
-    public List<Book> findBooksByGenre(Integer genreId) {
+    public List<Book> getBooksByGenre(Integer genreId) {
         return mySQLDAO.getBookDAO().findByGenre(genreId);
     }
 
@@ -62,15 +62,15 @@ public class SearchService {
      * @param authorName
      * @return all books where author name start with param
      */
-    public List<Book> findAllBookOfAuthor(String authorName) {
-        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(authorName);
+    public List<Book> getAllBookOfAuthor(String authorName) {
+        return mySQLDAO.getBookDAO().findAllBooksOfAuthorByName(authorName);
     }
 
     /**
      *
      * @return all genres
      */
-    public List<Genre> findAllGenres() {
+    public List<Genre> getAllGenres() {
         return mySQLDAO.getGenreDAO().findAll();
     }
 
@@ -78,7 +78,7 @@ public class SearchService {
      *
      * @return all authors
      */
-    public List<Author> findAllAuthors() {
+    public List<Author> getAllAuthors() {
         return mySQLDAO.getAuthorDAO().findAll();
     }
 
@@ -87,8 +87,8 @@ public class SearchService {
      * @param authorId
      * @return all books of author
      */
-    public List<Book> allBooksOfAuthor(Integer authorId) {
-        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(authorId);
+    public List<Book> getAllBooksOfAuthor(Integer authorId) {
+        return mySQLDAO.getBookDAO().findAllBooksOfAuthorById(authorId);
     }
 
     /**
@@ -96,7 +96,7 @@ public class SearchService {
      * @param name
      * @return authors which name start with parameter
      */
-    public List<Author> findAuthorsByName(String name) {
+    public List<Author> getAuthorsByName(String name) {
         return mySQLDAO.getAuthorDAO().findByName(name);
     }
 
@@ -105,7 +105,7 @@ public class SearchService {
      * @param bookId
      * @return book by id
      */
-    public Book findBooksById(Integer bookId) {
+    public Book getBooksById(Integer bookId) {
         return mySQLDAO.getBookDAO().findById(bookId);
     }
 }

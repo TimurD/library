@@ -46,7 +46,7 @@
                         ${r.name}
                 </td>
                 <td>
-                    <form name="setAmount" method="POST" action="/Controller">
+                    <form name="setRole" method="POST" action="/Controller">
                         <input type="hidden" name="command" value="setRole"/>
                         <input type="hidden" name="userId" value="${r.id}"/>
                         <input type="hidden" name="admin" value="${r.admin}">

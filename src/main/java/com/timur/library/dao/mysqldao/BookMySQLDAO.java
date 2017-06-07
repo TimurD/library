@@ -22,8 +22,6 @@ public class BookMySQLDAO implements BookDAO {
     private final static Logger LOGGER = Logger.getLogger(BookMySQLDAO.class);
 
 
-    private final int COLUMN_BOOK_ID = 1;
-    private final int COLUMN_BOOK_NAME = 1;
     private final String SELECT_BOOKS = "SELECT g.name,g.id,b.name,b.id,b.amount,a.name,a.id FROM books b JOIN genres g ON b.genre_id=g.id JOIN books_authors ba ON ba.book_id=b.id JOIN authors a ON a.id=ba.author_id ";
     private final String CREATE_BOOK = "INSERT INTO books (name,genre_id,amount) VALUES (?,?,?)";
     private final String SELECT_BOOK_BY_ID = SELECT_BOOKS + "WHERE b.id=?";
@@ -60,7 +58,7 @@ public class BookMySQLDAO implements BookDAO {
         List<Book> books = new ArrayList<>();
         try(Connection connection=Connector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOKS_BY_NAME)) {
-            preparedStatement.setString(COLUMN_BOOK_NAME, name+"%");
+            preparedStatement.setString(1, name+"%");
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     books=fillUpBook(resultSet);
 
@@ -76,7 +74,7 @@ public class BookMySQLDAO implements BookDAO {
         List<Book> books = new ArrayList<>();
         try (Connection connection=Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOKS_BY_GENRE)) {
-            preparedStatement.setInt(COLUMN_BOOK_NAME, genreId);
+            preparedStatement.setInt(1, genreId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 books=fillUpBook(resultSet);
 
@@ -92,7 +90,7 @@ public class BookMySQLDAO implements BookDAO {
         Book book = new Book();
         try (Connection connection=Connector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_ID)) {
-            preparedStatement.setInt(COLUMN_BOOK_ID, bookId);
+            preparedStatement.setInt(1, bookId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     book=fillUpBook(resultSet).get(0);
 
@@ -118,34 +116,16 @@ public class BookMySQLDAO implements BookDAO {
 
 
     @Override
-    public List<Book> findAllBooksOfAuthor(String authorName) {
-        List<Book> books = new ArrayList<>();
-        try (Connection connection=Connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_OF_AUTHOR_BY_NAME)){
-            preparedStatement.setString(1,authorName+"%");
-            try(ResultSet resultSet = preparedStatement.executeQuery()) {
-                books=fillUpBook(resultSet);
-            }
-        }catch (SQLException e) {
-            LOGGER.error(e.getMessage());
-        }
-        return books;
+    public List<Book> findAllBooksOfAuthorByName(String authorName) {
+        return findAllBooksOfAuthor(authorName+"%",SELECT_BOOK_OF_AUTHOR_BY_NAME);
     }
 
     @Override
-    public List<Book> findAllBooksOfAuthor(Integer authorId) {
-        List<Book> books = new ArrayList<>();
-        try (Connection connection=Connector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_OF_AUTHOR_BY_ID)){
-            preparedStatement.setInt(1,authorId);
-            try(ResultSet resultSet = preparedStatement.executeQuery()) {
-                books=fillUpBook(resultSet);
-            }
-        }catch (SQLException e) {
-            LOGGER.error(e.getMessage());
-        }
-        return books;
+    public List<Book> findAllBooksOfAuthorById(Integer authorId) {
+        return findAllBooksOfAuthor(authorId,SELECT_BOOK_OF_AUTHOR_BY_ID);
     }
+
+
 
     @Override
     public void setBookAmount(Integer id, Integer amount) {
@@ -215,6 +195,20 @@ public class BookMySQLDAO implements BookDAO {
            }
        }
            return new ArrayList<Book>(books.values());
+    }
+
+    private List<Book> findAllBooksOfAuthor(Object search,String query) {
+        List<Book> books = new ArrayList<>();
+        try (Connection connection=Connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setObject(1,search);
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                books=fillUpBook(resultSet);
+            }
+        }catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return books;
     }
 }
 

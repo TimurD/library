@@ -23,7 +23,7 @@ public class CommandAuthorsSearch implements ICommand {
         String name=request.getParameter(SEARCH_TEXT);
         if(name!=null){
             request.setAttribute("searchText",name);
-            request.getSession().setAttribute("authors", searchService.findAuthorsByName(name));
+            request.getSession().setAttribute("authors", searchService.getAuthorsByName(name));
         }
         String page= Config.getInstance().getProperty(Config.ADD_AUTHOR);
         return page;

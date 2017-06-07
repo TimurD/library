@@ -2,7 +2,6 @@ package com.timur.library.commands.admin;
 
 import com.timur.library.commands.ICommand;
 import com.timur.library.managers.Config;
-import com.timur.library.managers.Message;
 import com.timur.library.services.AdminService;
 import com.timur.library.services.SearchService;
 
@@ -26,7 +25,7 @@ public class CommandSetBookAmount implements ICommand {
         Integer bookId = Integer.valueOf(request.getParameter(BOOK_ID));
         Integer amount=Integer.valueOf(request.getParameter(NEW_BOOK_AMOUNT));
         adminService.setBookAmount(bookId,amount);
-        request.getSession().setAttribute("books", searchService.findAllBooks());
+        request.getSession().setAttribute("books", searchService.getAllBooks());
         return Config.getInstance().getProperty(Config.MAIN);
     }
 }

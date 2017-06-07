@@ -18,7 +18,7 @@ public class CommandMainMenu implements ICommand {
     private SearchService searchService =  SearchService.getInstance();
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("books", searchService.findAllBooks());
+        request.getSession().setAttribute("books", searchService.getAllBooks());
         return Config.getInstance().getProperty(Config.MAIN);
     }
 }

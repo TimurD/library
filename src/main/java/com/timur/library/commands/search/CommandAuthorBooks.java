@@ -24,7 +24,7 @@ public class CommandAuthorBooks implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id= Integer.parseInt(request.getParameter(ID));
-        List<Book>books = searchService.allBooksOfAuthor(id);
+        List<Book>books = searchService.getAllBooksOfAuthor(id);
         request.setAttribute("books",books);
         String page= Config.getInstance().getProperty(Config.MAIN);
         return page;

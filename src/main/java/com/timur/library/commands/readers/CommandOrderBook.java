@@ -32,7 +32,7 @@ public class CommandOrderBook implements ICommand {
             request.getSession().setAttribute("message", Message.getInstance(locale).getString(Message.BOOK_IS_NOT_AVAILABLE));
         }else{
             request.getSession().setAttribute("message", Message.getInstance(locale).getString(Message.BOOK_ORDERED));
-            request.getSession().setAttribute("books", searchService.findAllBooks());
+            request.getSession().setAttribute("books", searchService.getAllBooks());
         }
         response.sendRedirect(Config.getInstance().getProperty(Config.MAIN));
         return null;

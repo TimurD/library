@@ -17,14 +17,16 @@
 <div class="container">
     <div class="row">
         <div class="error-template">
-            <h1>Oops!</h1>
+            <h1><fmt:message bundle="${lang}" key="error.oops"/></h1>
             <div class="error-details">
-                Sorry, an error has occurred, Requested page not found!<br>
+                <fmt:message bundle="${lang}" key="error.message"/>
+                <br>
             </div>
             <div class="error-actions">
-                <a href="/Controller?command=mainMenu">Main page</a>
+                <a href="/Controller?command=mainMenu"><fmt:message bundle="${lang}" key="header.mainPage"/></a>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

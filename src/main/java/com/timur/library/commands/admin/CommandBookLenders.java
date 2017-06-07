@@ -27,7 +27,7 @@ public class CommandBookLenders implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id= Integer.parseInt(request.getParameter(READER_ID));
-        Book book= searchService.findBooksById(id);
+        Book book= searchService.getBooksById(id);
         request.getSession().setAttribute("book",book);
         List<ReaderBook>readerBooks= adminService.getReadersForBook(id);
         request.setAttribute("readerBooks",readerBooks);
