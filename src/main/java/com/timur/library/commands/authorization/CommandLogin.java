@@ -38,8 +38,6 @@ public class CommandLogin implements ICommand {
         Reader reader;
         reader= authorizationService.login(login,password);
         if (reader!=null) {
-            reader.setAdmin(authorizationService.isAdmin(reader.getRoles()));
-            reader.setHost(authorizationService.isHost(reader.getRoles()));
             request.getSession().setAttribute("user",reader);
             if(reader.getHost()){
                 request.setAttribute("users",hostService.getUsersForHost());

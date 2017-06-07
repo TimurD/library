@@ -32,54 +32,115 @@ public class AdminService {
         return localInstance;
     }
 
+    /**
+     * find all readers
+     * @return all readers
+     */
     public List<Reader>getInfoAboutAllReaders(){
         return mySQLDAO.getReaderDAO().findAll();
     }
 
+    /**
+     *
+     * @param name
+     * @return reader where name start with param
+     */
     public List<Reader>getReadersByName(String name){
         return mySQLDAO.getReaderDAO().findByName(name);
     }
 
+    /**
+     *
+     * @param email
+     * @return reader where name start with param
+     */
     public List<Reader>getReadersByEmail(String email){
         return mySQLDAO.getReaderDAO().findByEmail(email);
     }
 
+    /**
+     * @param readerId
+     * @return all books which reader take
+     */
+
     public List<ReaderBook>getBooksOfReaderForAdmin(Integer readerId){return mySQLDAO.getReaderBookDAO().findReaderBooksForAdmins(readerId);}
 
-    public void readerReturnBook(Integer id) {
-        mySQLDAO.getReaderBookDAO().readerReturnBook(id);
+    /**
+     * @param readerBookId
+     */
+    public void readerReturnBook(Integer readerBookId) {
+        mySQLDAO.getReaderBookDAO().readerReturnBook(readerBookId);
     }
 
+    /**
+     *
+     * @param readerId
+     * @return reader by id
+     */
     public Reader getReaderById(Integer readerId){
         return mySQLDAO.getReaderDAO().findById(readerId);
     }
 
+
+    /**
+     *
+     * @param bookId
+     * @return all readers who take book
+     */
     public List<ReaderBook>getReadersForBook(Integer bookId){
         return mySQLDAO.getReaderBookDAO().findReadersForBook(bookId);
     }
 
+    /**
+     *
+     * @return all orders on books
+     */
     public List<ReaderBook> getBookOrders(){
         return mySQLDAO.getReaderBookDAO().findBookOrders();
     }
 
-    public void getBookToReader(Integer id, Integer days){
-        mySQLDAO.getReaderBookDAO().getBookToReader(id,days);
+
+    /**
+     *get book to reader with readerId on n days
+     * @param readerId
+     * @param days
+     */
+    public void getBookToReader(Integer readerId, Integer days){
+        mySQLDAO.getReaderBookDAO().getBookToReader(readerId,days);
     }
 
+    /**
+     *
+     * @return all books in reading room
+     */
     public List<ReaderBook> getBooksFromReadingRoom() {
         return mySQLDAO.getReaderBookDAO().findBooksForReadingRoom();
     }
 
+    /**
+     * delete all orders on book, all book authors, and book
+     * @param bookId
+     */
     public void deleteBook(Integer bookId){
         mySQLDAO.getReaderBookDAO().deleteForBook(bookId);
         mySQLDAO.getAuthorsBookDAO().delete(bookId);
         mySQLDAO.getBookDAO().delete(bookId);
     }
 
+    /**
+     *
+     * @param bookId
+     * @return is book ordered
+     */
     public Boolean isBookOrdered(Integer bookId){
         return mySQLDAO.getReaderBookDAO().isBookOrdered(bookId);
     }
 
+    /**
+     *
+     * @param bookId
+     * @param amount new book amount
+     */
     public void setBookAmount(Integer bookId, Integer amount) {
         mySQLDAO.getBookDAO().setBookAmount(bookId,amount);
     }

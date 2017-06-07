@@ -18,10 +18,10 @@ public interface BookDAO {
 
     /**
      *
-     * @param id
+     * @param bookId
      * @return book by id
      */
-    Book findById(Integer id);
+    Book findById(Integer bookId);
 
     /**
      *
@@ -55,7 +55,7 @@ public interface BookDAO {
     /**
      *
      * @param bookId
-     * @param amount
+     * @param amount new book amount
      */
     void setBookAmount(Integer bookId, Integer amount);
 

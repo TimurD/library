@@ -25,12 +25,14 @@ public class CommandReaderInfo implements ICommand {
     private IssuanceBookService issuanceBookService = IssuanceBookService.getInstance();
     private AuthorizationService authorizationService=AuthorizationService.getInstance();
 
+    private final static String READER_ID="id";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Reader currentUser = (Reader) request.getSession().getAttribute("user");
+        Reader currentUser = (Reader) request.getSession().getAttribute(CURRENT_USER);
         List<ReaderBook> readerBooks;
         if (authorizationService.isAdmin(currentUser.getRoles())) {
-            int readerId = Integer.parseInt(request.getParameter("id"));
+            int readerId = Integer.parseInt(request.getParameter(READER_ID));
             request.getSession().setAttribute("reader", adminService.getReaderById(readerId));
             readerBooks = adminService.getBooksOfReaderForAdmin(readerId);
         } else {

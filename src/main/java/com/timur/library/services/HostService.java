@@ -32,19 +32,37 @@ public class HostService {
 
     private DAOFactory mySQLDAO = DAOFactory.getDAOFactory(DAOTypes.MySQL);
 
+    /**
+     *
+     * @return all users and their roles
+     */
     public List<Reader> getUsersForHost(){
         return mySQLDAO.getReaderDAO().findUsersForHost();
     }
 
+    /**
+     * delete all orders on books and make user admin
+     * @param userId
+     */
     public void makeAdmin(Integer userId){
+        mySQLDAO.getReaderBookDAO().deleteForReader(userId);
         mySQLDAO.getReaderRoleDAO().makeAdmin(userId);
     }
 
+
+    /**
+     * delete admin role for user
+     * @param userId
+     */
     public void unmakeAdmin(Integer userId){
-        mySQLDAO.getReaderBookDAO().deleteForReader(userId);
         mySQLDAO.getReaderRoleDAO().unmakeAdmin(userId);
     }
 
+    /**
+     *
+     * @param userId
+     * @return is reader has debt
+     */
     public boolean isReaderHasDebt(Integer userId) {
         return mySQLDAO.getReaderBookDAO().isReaderHasDebt(userId);
     }

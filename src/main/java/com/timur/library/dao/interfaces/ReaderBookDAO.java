@@ -19,14 +19,13 @@ public interface ReaderBookDAO {
     Boolean readerTakeBook(Integer readerId, Integer bookId, Boolean isAdmin);
 
     /**
-     *
+     *get book to reader with readerId on n days
      * @param readerId
      * @param days
      */
     void getBookToReader(Integer readerId, Integer days);
 
     /**
-     *
      * @param readerBookId
      */
     void readerReturnBook(Integer readerBookId);

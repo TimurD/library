@@ -46,16 +46,28 @@ public class AuthorizationService {
         return localInstance;
     }
 
-
+    /**
+     *
+     * @param email
+     * @param password
+     * @return return reader by email and password and switch roles for him
+     */
     public Reader login(String email, String password){
        Reader reader= mySQLDAO.getReaderDAO().login(email,hashPassword(password));
        if(reader!=null){
            reader.setRoles(mySQLDAO.getRoleDAO().findRolesForReader(reader));
-           reader.setAdmin(reader.getAdmin());
+           reader.setHost(isHost(reader.getRoles()));
+           reader.setAdmin(isAdmin(reader.getRoles()));
        }
        return reader;
     }
 
+    /**
+     * create new user
+     * @param name
+     * @param password
+     * @param email
+     */
     public void signUp(String name,String password,String email){
         Reader reader=new Reader();
         reader.setName(name);
@@ -64,6 +76,11 @@ public class AuthorizationService {
         mySQLDAO.getReaderDAO().create(reader);
     }
 
+    /**
+     *
+     * @param roles
+     * @return is user admin
+     */
     public boolean isAdmin(List<Role> roles) {
         for(Role role:roles){
             if(role.getName().equals("ROLE_ADMIN")) {
@@ -73,7 +90,12 @@ public class AuthorizationService {
         return false;
     }
 
-    public boolean isHost(List<Role> roles) {
+    /**
+     *
+     * @param roles
+     * @return is user host
+     */
+    private boolean isHost(List<Role> roles) {
         for(Role role:roles){
             if(role.getName().equals("ROLE_HOST")) {
                 return true;
@@ -83,20 +105,39 @@ public class AuthorizationService {
     }
 
 
+    /**
+     * check is name valid
+     * @param name
+     * @return is name valid
+     */
     public boolean checkName(String name){
         return name.matches(VALID_NAME_REGEX);
     }
 
+    /**
+     * check is password valid
+     * @param password
+     * @return is password valid
+     */
     public boolean checkPassword(String password){
         return password.matches(VALID_PASSWORD_REGEX);
     }
 
+    /**
+     * check is email valid
+     * @param email
+     * @return is email valid
+     */
     public boolean checkEmail(String email){
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
         return matcher.find();
     }
 
-
+    /**
+     *
+     * @param password
+     * @return encrypted password
+     */
     private String hashPassword(String password) {
         MessageDigest md = null;
         try {

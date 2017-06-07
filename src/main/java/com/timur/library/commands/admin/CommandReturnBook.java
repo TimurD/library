@@ -20,22 +20,28 @@ public class CommandReturnBook implements ICommand {
 
     private AdminService adminService=AdminService.getInstance();
 
+    private final static String READER_ID="id";
+    private final static String REQUEST_PAGE="page";
+    private final static String READER_INFO_PAGE="readerInfo";
+    private final static String BOOK_LENDERS_PAGE="bookLenders";
+    private final static String READING_ROOM_PAGE="readingRoom";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page=null;
-        Integer id= Integer.valueOf(request.getParameter("id"));
+        String page;
+        Integer id= Integer.valueOf(request.getParameter(READER_ID));
         adminService.readerReturnBook(id);
-        String queryFrom=request.getParameter("page");
+        String queryFrom=request.getParameter(REQUEST_PAGE);
         List<ReaderBook> readerBooks;
-        if(queryFrom.equals("readerInfo")) {
+        if(queryFrom.equals(READER_INFO_PAGE)) {
             Reader reader = (Reader) request.getSession().getAttribute("reader");
             readerBooks = adminService.getBooksOfReaderForAdmin(reader.getId());
             page= Config.getInstance().getProperty(Config.READER_INFO);
-        }else if(queryFrom.equals("bookLenders")) {
+        }else if(queryFrom.equals(BOOK_LENDERS_PAGE)) {
             Book book=(Book)request.getSession().getAttribute("book");
             readerBooks = adminService.getReadersForBook(book.getId());
             page= Config.getInstance().getProperty(Config.BOOK_LENDERS);
-        }else if(queryFrom.equals("readingRoom")) {
+        }else if(queryFrom.equals(READING_ROOM_PAGE)) {
             readerBooks = adminService.getBooksFromReadingRoom();
             page= Config.getInstance().getProperty(Config.READING_ROOM);
         }else {

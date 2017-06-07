@@ -23,13 +23,14 @@ public class CommandAddBook implements ICommand {
     private static final String AMOUNT = "amount";
     private static final String GENRE_ID = "selectedGenre";
     private static final String AUTHORS="selectedAuthors";
+    private static final String IS_IT_QUERY_ON_CREATING_BOOK="newBook";
     private SearchService searchService =  SearchService.getInstance();
     private AddingService addingService = AddingService.getInstance();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = Config.getInstance().getProperty(Config.ADD_BOOK);;
-        if(request.getParameter("newBook")==null) {
+        if(request.getParameter(IS_IT_QUERY_ON_CREATING_BOOK)==null) {
             request.setAttribute("authors", searchService.findAllAuthors());
             return page;
         }

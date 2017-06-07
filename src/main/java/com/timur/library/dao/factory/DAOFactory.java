@@ -8,6 +8,12 @@ import com.timur.library.dao.mysqldao.*;
  */
 public abstract class DAOFactory {
 
+
+    /**
+     *
+     * @param daoTypes type of db
+     * @return a DAO depending on its type
+     */
     public static DAOFactory getDAOFactory(DAOTypes daoTypes)  {
 
         switch (daoTypes) {

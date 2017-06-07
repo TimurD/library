@@ -21,6 +21,7 @@ public class SessionFilter implements Filter {
         allowedCommands.add("login");
         allowedCommands.add("registration");
         allowedCommands.add("registrationPage");
+        allowedCommands.add("switchLang");
     }
 
     @Override

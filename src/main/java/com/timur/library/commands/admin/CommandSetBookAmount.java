@@ -18,10 +18,13 @@ public class CommandSetBookAmount implements ICommand {
     private AdminService adminService = AdminService.getInstance();
     private SearchService searchService = SearchService.getInstance();
 
+    private final static String BOOK_ID="bookId";
+    private final static String NEW_BOOK_AMOUNT="amount";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer bookId = Integer.valueOf(request.getParameter("bookId"));
-        Integer amount=Integer.valueOf(request.getParameter("amount"));
+        Integer bookId = Integer.valueOf(request.getParameter(BOOK_ID));
+        Integer amount=Integer.valueOf(request.getParameter(NEW_BOOK_AMOUNT));
         adminService.setBookAmount(bookId,amount);
         request.getSession().setAttribute("books", searchService.findAllBooks());
         return Config.getInstance().getProperty(Config.MAIN);

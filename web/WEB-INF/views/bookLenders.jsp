@@ -27,8 +27,8 @@ ${book.name}
             <th><fmt:message key="login.email" bundle="${lang}"/></th>
             <th><fmt:message key="llendDate" bundle="${lang}"/></th>
             <th><fmt:message key="returnDate" bundle="${lang}"/></th>
-            <th></th>
-            <th></th>
+            <th><fmt:message key="return" bundle="${lang}"/></th>
+            <th><fmt:message key="daysLeft" bundle="${lang}"/></th>
 
         </tr>
         </thead>

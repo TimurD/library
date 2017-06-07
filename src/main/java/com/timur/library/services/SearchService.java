@@ -10,11 +10,12 @@ import java.util.List;
  * Created by timur on 28.05.2017.
  */
 public class SearchService {
-    private DAOFactory mySQLDAO= DAOFactory.getDAOFactory(DAOTypes.MySQL);;
+    private DAOFactory mySQLDAO = DAOFactory.getDAOFactory(DAOTypes.MySQL);
+    ;
     private static volatile SearchService searchService;
 
 
-    private SearchService(){
+    private SearchService() {
 
     }
 
@@ -31,44 +32,81 @@ public class SearchService {
         return localInstance;
     }
 
-    public List<Book>findAllBooks(){
+    /**
+     * @return all books
+     */
+    public List<Book> findAllBooks() {
         return mySQLDAO.getBookDAO().findAll();
     }
 
-
-    public List<Book>findBooksByName(String name){
+    /**
+     *
+     * @param name
+     * @return books which names start with parameter
+     */
+    public List<Book> findBooksByName(String name) {
         return mySQLDAO.getBookDAO().findByName(name);
     }
 
-    public List<Book>findBooksByGenre(Integer genreId){
+    /**
+     *
+     * @param genreId
+     * @return book by genre
+     */
+    public List<Book> findBooksByGenre(Integer genreId) {
         return mySQLDAO.getBookDAO().findByGenre(genreId);
     }
 
-
-    public List<Book>findAllBookOfAuthor(String name){
-        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(name);
+    /**
+     *
+     * @param authorName
+     * @return all books where author name start with param
+     */
+    public List<Book> findAllBookOfAuthor(String authorName) {
+        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(authorName);
     }
 
-    public List<Genre>findAllGenres(){
+    /**
+     *
+     * @return all genres
+     */
+    public List<Genre> findAllGenres() {
         return mySQLDAO.getGenreDAO().findAll();
     }
 
-    public List<Author>findAllAuthors(){
+    /**
+     *
+     * @return all authors
+     */
+    public List<Author> findAllAuthors() {
         return mySQLDAO.getAuthorDAO().findAll();
     }
 
-
-
-    public List<Book>allBooksOfAuthor(Integer id){
-        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(id);
+    /**
+     *
+     * @param authorId
+     * @return all books of author
+     */
+    public List<Book> allBooksOfAuthor(Integer authorId) {
+        return mySQLDAO.getBookDAO().findAllBooksOfAuthor(authorId);
     }
 
-    public List<Author>findAuthorsByName(String name){
+    /**
+     *
+     * @param name
+     * @return authors which name start with parameter
+     */
+    public List<Author> findAuthorsByName(String name) {
         return mySQLDAO.getAuthorDAO().findByName(name);
     }
 
-    public Book findBooksById(Integer id) {
-        return mySQLDAO.getBookDAO().findById(id);
+    /**
+     *
+     * @param bookId
+     * @return book by id
+     */
+    public Book findBooksById(Integer bookId) {
+        return mySQLDAO.getBookDAO().findById(bookId);
     }
 }
 

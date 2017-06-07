@@ -53,10 +53,10 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/Controller?command=switchLang&lang=ru_RU">
+                <li><a href="/Controller?command=switchLang&lang=ru_RU&&page=main">
                     <fmt:message key="header.ru" bundle="${lang}"/>
                 </a></li>
-                <li><a href="/Controller?command=switchLang&lang=en_US">
+                <li><a href="/Controller?command=switchLang&lang=en_US&&page=main">
                     <fmt:message key="header.en" bundle="${lang}"/>
                 </a></li>
                 <li></li>

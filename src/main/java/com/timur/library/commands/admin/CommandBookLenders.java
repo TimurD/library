@@ -22,10 +22,11 @@ public class CommandBookLenders implements ICommand {
 
     private SearchService searchService =  SearchService.getInstance();
     private AdminService adminService=AdminService.getInstance();
+    private final static String READER_ID="id";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id= Integer.parseInt(request.getParameter("id"));
+        int id= Integer.parseInt(request.getParameter(READER_ID));
         Book book= searchService.findBooksById(id);
         request.getSession().setAttribute("book",book);
         List<ReaderBook>readerBooks= adminService.getReadersForBook(id);

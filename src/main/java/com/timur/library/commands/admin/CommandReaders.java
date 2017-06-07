@@ -17,11 +17,8 @@ public class CommandReaders implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = null;
         request.setAttribute("readers", adminService.getInfoAboutAllReaders());
-        page = Config.getInstance().getProperty(Config.READERS);
-
-        return page;
+        return Config.getInstance().getProperty(Config.READERS);
     }
 }
 

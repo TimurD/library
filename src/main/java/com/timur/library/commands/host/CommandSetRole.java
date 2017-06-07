@@ -17,16 +17,19 @@ import java.io.IOException;
  */
 public class CommandSetRole implements ICommand {
     private HostService hostService=HostService.getInstance();
-    private AuthorizationService authorizationService=AuthorizationService.getInstance();
+
+    private final static String USER_ID="userId";
+    private final static String IS_USER_ADMIN="admin";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Reader reader=(Reader)request.getSession().getAttribute("user");
+        Reader reader=(Reader)request.getSession().getAttribute(CURRENT_USER);
 
         if(!reader.getHost()){
             return Config.getInstance().getProperty(Config.MAIN);
         }
-        Integer userId= Integer.valueOf(request.getParameter("userId"));
-        Boolean admin= Boolean.valueOf(request.getParameter("admin"));
+        Integer userId= Integer.valueOf(request.getParameter(USER_ID));
+        Boolean admin= Boolean.valueOf(request.getParameter(IS_USER_ADMIN));
         String locale= (String) request.getSession().getAttribute(LOCALE);
         if(!admin){
             if(!hostService.isReaderHasDebt(userId)) {

@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: timur
@@ -11,12 +12,14 @@
     <title>Title</title>
 </head>
 <body>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locales.locale" var="lang"/>
 <div class="container">
     <div class="row">
         <div class="error-template">
             <h1>Oops!</h1>
             <div class="error-details">
-                Sorry, an error has occured, Requested page not found!<br>
+                Sorry, an error has occurred, Requested page not found!<br>
             </div>
             <div class="error-actions">
                 <a href="/Controller?command=mainMenu">Main page</a>

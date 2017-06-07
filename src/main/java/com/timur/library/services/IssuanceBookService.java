@@ -32,10 +32,22 @@ public class IssuanceBookService {
         return localInstance;
     }
 
-    public Boolean queryOnBook(Integer readerId, Integer bookId, boolean isAdmin) {
+    /**
+     *  if reader admin book write on reading room, if reader not admin book write on reader
+     * @param readerId
+     * @param bookId
+     * @param isAdmin
+     * @return is success
+     */
+    public Boolean orderBook(Integer readerId, Integer bookId, boolean isAdmin) {
         return mySQLDAO.getReaderBookDAO().readerTakeBook(readerId, bookId,isAdmin);
     }
 
+    /**
+     *
+     * @param readerId
+     * @return all books which reader take or order
+     */
     public List<ReaderBook>getBooksOfReaderForReader(Integer readerId){return mySQLDAO.getReaderBookDAO().findReaderBooksForReader(readerId);}
 
 

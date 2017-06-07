@@ -24,7 +24,7 @@
             <th>#</th>
             <th><fmt:message bundle="${lang}" key="registration.name"/></th>
             <th><fmt:message bundle="${lang}" key="main.authors"/></th>
-            <th></th>
+            <th><fmt:message bundle="${lang}" key="return"/></th>
 
         </tr>
         </thead>

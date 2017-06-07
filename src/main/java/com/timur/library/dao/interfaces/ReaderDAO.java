@@ -50,8 +50,8 @@ public interface ReaderDAO{
     void create(Reader reader);
 
     /**
-     * find all user and their role
-     * @return
+     * find all users and their role
+     * @return all users and their role
      */
     List<Reader> findUsersForHost();
 

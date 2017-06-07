@@ -19,7 +19,7 @@ public class CommandMissing implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession(false)==null||request.getSession().getAttribute("user")==null) {
+        if(request.getSession(false)==null||request.getSession().getAttribute(CURRENT_USER)==null) {
             return Config.getInstance().getProperty(Config.LOGIN);
         }else return Config.getInstance().getProperty(Config.MAIN);
     }

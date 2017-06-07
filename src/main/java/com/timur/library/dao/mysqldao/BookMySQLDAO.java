@@ -88,11 +88,11 @@ public class BookMySQLDAO implements BookDAO {
     }
 
     @Override
-    public Book findById(Integer id) {
+    public Book findById(Integer bookId) {
         Book book = new Book();
         try (Connection connection=Connector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_ID)) {
-            preparedStatement.setInt(COLUMN_BOOK_ID, id);
+            preparedStatement.setInt(COLUMN_BOOK_ID, bookId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     book=fillUpBook(resultSet).get(0);
 

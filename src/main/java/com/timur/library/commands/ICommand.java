@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface ICommand {
     String LOCALE="locale";
+    String CURRENT_USER="user";
 
     /**
      * this method returns relative address of jsp file, which will be forwarded by servlet.

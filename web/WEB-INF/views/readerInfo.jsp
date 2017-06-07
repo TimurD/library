@@ -28,10 +28,9 @@
             <th><fmt:message bundle="${lang}" key="llendDate"/></th>
             <th><fmt:message bundle="${lang}" key="returnDate"/></th>
             <c:if test="${user.admin}">
-                <th></th>
+                <th><fmt:message key="return" bundle="${lang}"/></th>
             </c:if>
-            <th></th>
-
+            <th><fmt:message key="daysLeft" bundle="${lang}"/></th>
         </tr>
         </thead>
         <tbody>

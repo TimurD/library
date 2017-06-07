@@ -40,6 +40,10 @@ public class Connector {
 
     private static DataSource pool;
 
+    /**
+     *
+     * @return connection from connection pool
+     */
     public static synchronized Connection getConnection() {
         if (pool == null) {
             try {
