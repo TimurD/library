@@ -33,8 +33,8 @@ public class SessionFilter implements Filter {
         if(command!=null&&allowedCommands.contains(command)) {
             allowedRequest = true;
         }
-        if (!allowedRequest&&(request.getSession(false)==null||request.getSession().getAttribute("user")==null)) {
-                response.sendRedirect(Config.getInstance().getProperty(Config.LOGIN));
+        if (!allowedRequest&&(request.getSession(false)==null||request.getSession(false).getAttribute("user")==null)) {
+            response.sendRedirect(Config.getInstance().getProperty(Config.LOGIN));
         }else {
             filterChain.doFilter(request, response);
         }

@@ -16,7 +16,7 @@
 
 
 <div class="container">
-    <form class="form-signin" name="loginForm" method="POST" action="Controller">
+    <form class="form-signin" name="loginForm" method="POST" action="/Controller">
         <input type="hidden" name="command" value="login"/>
         <fmt:message key="login.email" bundle="${lang}"/> :<br/>
         <input class="form-control" required="required" placeholder="<fmt:message key="login.email" bundle="${lang}"/>"

@@ -32,7 +32,6 @@ public class CommandLogin implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String locale=(String) request.getSession().getAttribute(LOCALE);
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
         Reader reader;
@@ -47,6 +46,7 @@ public class CommandLogin implements ICommand {
             request.getServletContext().setAttribute("genres", searchService.getAllGenres());
             return Config.getInstance().getProperty(Config.MAIN);
         }
+            String locale=(String) request.getSession().getAttribute(LOCALE);
             request.setAttribute("error", Message.getInstance(locale).getString(Message.LOGIN_ERROR));
             return Config.getInstance().getProperty(Config.LOGIN);
 

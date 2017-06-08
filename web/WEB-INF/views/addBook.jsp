@@ -53,7 +53,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-default"><fmt:message bundle="${lang}" key="submit"/>:</button>
+        <button type="submit" class="btn btn-default"><fmt:message bundle="${lang}" key="submit"/></button>
     </form>
     ${error}
 

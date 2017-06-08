@@ -41,10 +41,8 @@
             <c:forEach var="r" items="${users}" varStatus="loop">
             <tr>
                 <td>${(loop.index+1)}</td>
-                <td><a href="/Controller?command=readerInfo&id=${r.id}"> ${r.email} </a></td>
-                <td>
-                        ${r.name}
-                </td>
+                <td>${r.email}</td>
+                <td>${r.name}</td>
                 <td>
                     <form name="setRole" method="POST" action="/Controller">
                         <input type="hidden" name="command" value="setRole"/>
@@ -52,12 +50,12 @@
                         <input type="hidden" name="admin" value="${r.admin}">
                         <c:choose>
                             <c:when test="${r.admin}">
-                                <button type="submit" class="btn btn-danger">Unmake admin</button>
+                                <button type="submit" class="btn btn-danger"><fmt:message key="host.unamkeAdmin" bundle="${lang}"/></button>
 
                             </c:when>
 
                             <c:otherwise>
-                                <button type="submit" class="btn btn-primary">Make admin</button>
+                                <button type="submit" class="btn btn-primary"><fmt:message key="host.makeAdmin" bundle="${lang}"/></button>
                             </c:otherwise>
                         </c:choose>
                     </form>

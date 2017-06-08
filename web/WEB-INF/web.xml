@@ -27,9 +27,9 @@
         </session-timeout>
     </session-config>
 
-    <error-page>
+    <!--<error-page>
         <location>/WEB-INF/views/errorPage.jsp</location>
-    </error-page>
+    </error-page>-->
 
     <filter>
         <filter-name>SessionFilter</filter-name>

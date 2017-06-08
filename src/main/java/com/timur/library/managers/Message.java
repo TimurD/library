@@ -39,9 +39,9 @@ public class Message {
 
 
     public static ResourceBundle getInstance(String locale) {
-        if (locale==null||locale.equals(EN)) {
-            return MESSAGE_EN;
+        if (locale==null||locale.equals(RU)) {
+            return MESSAGE_RU;
         }
-        return MESSAGE_RU;
+        return MESSAGE_EN;
     }
 }

@@ -29,9 +29,9 @@ public class CommandAddBook implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = Config.getInstance().getProperty(Config.ADD_BOOK);;
+        String page = Config.getInstance().getProperty(Config.ADD_BOOK);
+        request.setAttribute("authors", searchService.getAllAuthors());
         if(request.getParameter(IS_IT_QUERY_ON_CREATING_BOOK)==null) {
-            request.setAttribute("authors", searchService.getAllAuthors());
             return page;
         }
         String bookName=request.getParameter(NAME);
