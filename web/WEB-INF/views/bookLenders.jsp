@@ -18,6 +18,10 @@
 <fmt:setBundle basename="locales.locale" var="lang"/>
 
 ${book.name}
+<c:forEach begin="1" end="${pageCount}" var="page">
+    <a href="/Controller?command=setPage&&page=${page}">${page}</a>
+</c:forEach>
+
 <div class="col-md-12">
     <table class="table table-bordered">
         <thead>

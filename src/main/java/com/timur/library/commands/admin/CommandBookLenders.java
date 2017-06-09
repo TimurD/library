@@ -29,8 +29,9 @@ public class CommandBookLenders implements ICommand {
         int id= Integer.parseInt(request.getParameter(READER_ID));
         Book book= searchService.getBooksById(id);
         request.getSession().setAttribute("book",book);
-        List<ReaderBook>readerBooks= adminService.getReadersForBook(id);
+        List<ReaderBook>readerBooks= adminService.getReadersForBook(id,1);
         request.setAttribute("readerBooks",readerBooks);
+        request.getSession().setAttribute("pageCount",adminService.pageCount(id));
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         request.getSession().setAttribute("currentDate", timestamp);
         return Config.getInstance().getProperty(Config.BOOK_LENDERS);

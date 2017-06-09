@@ -87,8 +87,8 @@ public class AdminService {
      * @param bookId
      * @return all readers who take book
      */
-    public List<ReaderBook>getReadersForBook(Integer bookId){
-        return mySQLDAO.getReaderBookDAO().findReadersForBook(bookId);
+    public List<ReaderBook>getReadersForBook(Integer bookId,Integer page){
+        return mySQLDAO.getReaderBookDAO().findReadersForBook(bookId,page);
     }
 
     /**
@@ -144,4 +144,14 @@ public class AdminService {
     public void setBookAmount(Integer bookId, Integer amount) {
         mySQLDAO.getBookDAO().setBookAmount(bookId,amount);
     }
+
+    /**
+     *
+     * @param bookId
+     * @return count of pages
+     */
+    public Integer pageCount(Integer bookId){
+        return mySQLDAO.getReaderBookDAO().getPageCount(bookId);
+    }
+
 }

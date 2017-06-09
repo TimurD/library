@@ -20,7 +20,9 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
 
     private static volatile ReaderBookMySQLDAO readerBookMySQLDAO;
 
-    private final String SELECT_READERS_FOR_BOOK = "SELECT rb.id,rb.lend_date,rb.return_date,r.name,r.id,r.email FROM readers_books rb JOIN readers r ON rb.reader_id=r.id WHERE book_id=? AND active=b'1'";
+    private final String PAGE_COUNT="SELECT ceil(count(rb.id)/5) AS pageCount FROM readers_books rb JOIN readers r ON rb.reader_id=r.id WHERE book_id=? AND active=b'1'";
+    private final String LIMIT="ORDER BY rb.id  LIMIT ?,5";
+    private final String SELECT_READERS_FOR_BOOK = "SELECT rb.id,rb.lend_date,rb.return_date,r.name,r.id,r.email FROM readers_books rb JOIN readers r ON rb.reader_id=r.id WHERE book_id=? AND active=b'1' "+LIMIT;
     private final String SELECT_BOOKS_FOR_READER = "SELECT  rb.id,rb.lend_date,rb.return_date,a.id,a.name,b.id,b.name FROM readers_books rb JOIN books b ON rb.book_id=b.id JOIN books_authors ba ON ba.book_id=b.id JOIN authors a ON ba.author_id=a.id WHERE  rb.reader_id=? ";
     private final String SELECT_READER_BOOKS_FOR_ADMIN = SELECT_BOOKS_FOR_READER + "AND rb.active=b'1'";
     private final String READER_SEND_QUERY_ON_BOOK = "INSERT INTO readers_books(reader_id,book_id,active) VALUES(?,?,?)";
@@ -67,6 +69,24 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
             LOGGER.error(e.getMessage());
         }
         return i!=0;
+    }
+
+
+    @Override
+    public Integer getPageCount(Integer bookId) {
+        Integer pageCount=0;
+        try (Connection connection = Connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(PAGE_COUNT)) {
+            preparedStatement.setInt(1, bookId);
+            try(ResultSet resultSet=preparedStatement.executeQuery()){
+                if(resultSet.next()){
+                    pageCount=resultSet.getInt("pageCount");
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return pageCount;
     }
 
     @Override
@@ -127,11 +147,12 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
 
 
     @Override
-    public List<ReaderBook> findReadersForBook(Integer bookId) {
+    public List<ReaderBook> findReadersForBook(Integer bookId,Integer page) {
         List<ReaderBook> readers = new ArrayList<>();
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_READERS_FOR_BOOK)) {
             preparedStatement.setInt(1, bookId);
+            preparedStatement.setInt(2,page);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     ReaderBook readerBook = new ReaderBook();

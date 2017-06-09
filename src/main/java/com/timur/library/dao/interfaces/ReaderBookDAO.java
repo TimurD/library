@@ -49,7 +49,7 @@ public interface ReaderBookDAO {
      * @param bookId
      * @return all readers who take book
      */
-    List<ReaderBook> findReadersForBook(Integer bookId);
+    List<ReaderBook> findReadersForBook(Integer bookId,Integer page);
 
     /**
      * @param readerId
@@ -87,4 +87,11 @@ public interface ReaderBookDAO {
      * @param readerId
      */
     void deleteForReader(Integer readerId);
+
+    /**
+     *
+     * @param bookId
+     * @return page count
+     */
+    Integer getPageCount(Integer bookId);
 }

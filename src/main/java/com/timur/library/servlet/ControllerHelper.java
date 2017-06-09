@@ -15,10 +15,7 @@ import com.timur.library.commands.adding.CommandAddBook;
 import com.timur.library.commands.adding.CommandAddGenre;
 import com.timur.library.commands.admin.*;
 import com.timur.library.commands.host.CommandSetRole;
-import com.timur.library.commands.readers.CommandMainMenu;
-import com.timur.library.commands.readers.CommandMissing;
-import com.timur.library.commands.readers.CommandOrderBook;
-import com.timur.library.commands.readers.CommandSwitchLang;
+import com.timur.library.commands.readers.*;
 import com.timur.library.commands.search.CommandAuthorBooks;
 import com.timur.library.commands.search.CommandAuthorsSearch;
 import com.timur.library.commands.search.CommandBookSearch;
@@ -60,6 +57,7 @@ public class ControllerHelper {
         commands.put("setBookAmount",new CommandSetBookAmount());
         commands.put("switchLang",new CommandSwitchLang());
         commands.put("setRole",new CommandSetRole());
+        commands.put("setPage",new CommandSetPage());
     }
 
     public ICommand getCommand(HttpServletRequest request) {
