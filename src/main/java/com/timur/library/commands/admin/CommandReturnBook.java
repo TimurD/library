@@ -39,7 +39,7 @@ public class CommandReturnBook implements ICommand {
             page= Config.getInstance().getProperty(Config.READER_INFO);
         }else if(queryFrom.equals(BOOK_LENDERS_PAGE)) {
             Book book=(Book)request.getSession().getAttribute("book");
-            readerBooks = adminService.getReadersForBook(book.getId(),1);
+            readerBooks = adminService.getReadersForBook(book.getId(),0);
             request.getSession().setAttribute("pageCount",adminService.pageCount(book.getId()));
             page= Config.getInstance().getProperty(Config.BOOK_LENDERS);
         }else if(queryFrom.equals(READING_ROOM_PAGE)) {

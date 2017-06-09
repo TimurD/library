@@ -49,7 +49,7 @@ public interface ReaderBookDAO {
      * @param bookId
      * @return all readers who take book
      */
-    List<ReaderBook> findReadersForBook(Integer bookId,Integer page);
+    List<ReaderBook> findReadersForBook(Integer bookId,Integer fromBook);
 
     /**
      * @param readerId

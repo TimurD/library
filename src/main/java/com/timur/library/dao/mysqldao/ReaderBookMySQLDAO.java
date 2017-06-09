@@ -147,12 +147,12 @@ public class ReaderBookMySQLDAO implements ReaderBookDAO {
 
 
     @Override
-    public List<ReaderBook> findReadersForBook(Integer bookId,Integer page) {
+    public List<ReaderBook> findReadersForBook(Integer bookId,Integer fromBook) {
         List<ReaderBook> readers = new ArrayList<>();
         try (Connection connection = Connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_READERS_FOR_BOOK)) {
             preparedStatement.setInt(1, bookId);
-            preparedStatement.setInt(2,page);
+            preparedStatement.setInt(2,fromBook);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     ReaderBook readerBook = new ReaderBook();
