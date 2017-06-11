@@ -21,8 +21,9 @@ public class BookMySQLDAO implements BookDAO {
 
     private final static Logger LOGGER = Logger.getLogger(BookMySQLDAO.class);
 
-
+    private final String LIMIT="ORDER BY b.id LIMIT ?,5";
     private final String SELECT_BOOKS = "SELECT g.name,g.id,b.name,b.id,b.amount,a.name,a.id FROM books b JOIN genres g ON b.genre_id=g.id JOIN books_authors ba ON ba.book_id=b.id JOIN authors a ON a.id=ba.author_id ";
+    private final String SELECT_BOOKS_PAGES=SELECT_BOOKS+LIMIT;
     private final String CREATE_BOOK = "INSERT INTO books (name,genre_id,amount) VALUES (?,?,?)";
     private final String SELECT_BOOK_BY_ID = SELECT_BOOKS + "WHERE b.id=?";
     private final String SELECT_BOOKS_BY_NAME = SELECT_BOOKS + "WHERE b.name like ?";

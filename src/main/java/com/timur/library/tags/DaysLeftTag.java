@@ -28,7 +28,7 @@ public class DaysLeftTag extends TagSupport {
 
         long days = (TimeUnit.MILLISECONDS.toDays(returnDate.getTime() - new Date().getTime()));
 
-        content =days>=0 ? days+1L + Message.getInstance(locale).getString(Message.DAYS_LEFT) : -days + Message.getInstance(locale).getString(Message.DAYS_OVERDUE);
+        content = days >=0 ? days + 1L + Message.getInstance(locale).getString(Message.DAYS_LEFT) : -days + Message.getInstance(locale).getString(Message.DAYS_OVERDUE);
 
         try {
             pageContext.getOut().write(content);

@@ -24,17 +24,12 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String page = null;
-        String locale= (String) request.getSession().getAttribute("locale");
         try {
             ICommand command = controllerHelper.getCommand(request);
             page = command.execute(request, response);
-        } catch (ServletException e) {
+        } catch (ServletException | IOException e) {
             LOGGER.error(e.getMessage());
-            request.setAttribute("messageError", Message.getInstance(locale).getString(Message.SERVLET_EXECPTION));
-
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-            request.setAttribute("messageError", Message.getInstance(locale).getString(Message.IO_EXCEPTION));
+            throw e;
 
         }
         if(page!=null) {
